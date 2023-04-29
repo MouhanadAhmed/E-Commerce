@@ -55,7 +55,7 @@ function App() {
 
       {path:"products", element:<ProtectedRoute> <Products/></ProtectedRoute> },
       {path:"product-details/:id", element:<ProtectedRoute> <ProductDetails/></ProtectedRoute> },
-  
+      {path:"E-Commerce" , element:<ProtectedRoute> <Home/></ProtectedRoute> },
       {path:"*", element:<ProtectedRoute><NotFound/></ProtectedRoute>},
     ]}
   ])
