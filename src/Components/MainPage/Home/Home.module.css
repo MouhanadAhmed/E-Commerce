@@ -1,0 +1,11 @@
+.scale 
+{
+    transform: scale(2);
+
+}
+
+.unscale{
+    /* transform: scale(0.5) translateY(-50%); */
+    
+
+}

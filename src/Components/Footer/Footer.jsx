@@ -1,39 +1,105 @@
 import React from 'react'
 import  './Footer.module.css'
+import logo from '../../Assets/Images/Logowhite.svg'
+import { Link } from 'react-router-dom'
+
 
 export default function Footer() {
   return (
-    <footer className='  bottom py-4 text-white text-start px-4'>
-      <h2>Fresh Cart Footer</h2>
-      <p>We will send you a link, open it on your phone to download the app </p>
-      <div className="container d-flex justify-content-between mb-2">
-        <input className='form-control w-75' type="text" placeholder='Email..' />
-        <button className='btn btn-success btn-lg ms-3 w-25'>Share App Link</button>
-      </div>
-      <div className="container border-top border-bottom border-2 py-4 d-flex justify-content-between align-items-center">
-        <div className="leftPart">
-          <ul className='list-unstyled d-flex '>
-            <li className='me-2'> 
-              <h6>Payment Partners</h6>
-            </li>
-            <li className='me-2 text-primary'>
-              <i className='fa-brands fa-cc-amazon-pay'></i>
-            </li>
-            <li className='me-2 text-primary'>
-            <i className='fa-brands fa-cc-mastercard'></i>
-            </li>
-            <li className='me-2 text-primary'>
-            <i className='fa-brands fa-paypal'></i>
-            </li>
-          </ul>
-        </div>
-        <div className="rightPart d-flex align-items-center">
-          <h6>Get Deliveries with FreshCart</h6>
-          <button className='btn btn-dark btn-lg mx-3'><i class="fa-brands fa-app-store me-2"></i>Available on App Store</button>
-          <button className='btn btn-dark btn-lg'><i class="fa-brands fa-google-play me-2"></i>Get it from Google play</button>
+    <footer className=' bg-prim bottom p-5 text-white text-start '>
 
+      <div className="container-fluid pb-5 ps-5 mb-2 ">
+        <div className="row  pb-5">
+          <div className="col-md-4">
+          <img src={logo} alt="logo" className='mb-5 mt-4' />
+          <p className='mb-4 h6'>Stay informed about Sopa with our latest<br/> 
+            releases and founder news.</p>
+          <button id='mailBtn' className='btn text-white border rounded-pill '>Enter email here for updates</button>
+          </div>
+          <div className="col-md-8 pt-3">
+            <div className="row ">
+              <div className="col-md-3 mb-3">
+                <h3 className='fw-semi-bold mb-4'>Products</h3>
+               <h6 className=' mb-3'>
+               <Link className='text-white' href='#' to={'/categoryproducts/6439d5b90049ad0b52b90048'}>Men's Fashion</Link>
+                </h6> 
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/categoryproducts/6439d58a0049ad0b52b9003f'}>Women's Fashion</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3a8b575d3b90bf957e2'}>Laptops & Accessories</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3d8b575d3b90bf957ee'}>Printers & Accessories</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3ccb575d3b90bf957eb'}>Camera & Accessories</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white h6' href='#' to={'/products/6407f39bb575d3b90bf957df'}>TVs, Satellites & Accessories</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3c0b575d3b90bf957e8'}>Video Games</Link>
+                </h6>
+
+              </div>
+              <div className="col-md-3 mb-3">
+              <h3 className='fw-semi-bold mb-4'>Support</h3>
+              <h6 className=' mb-3'>
+               <Link className='text-white' href='#' to={'/'}>Help Center</Link>
+                </h6> 
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/'}>FAQs</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3a8b575d3b90bf957e2'}>Order</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3d8b575d3b90bf957ee'}>Order Status</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/products/6407f3ccb575d3b90bf957eb'}>Returns & Exchanges</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white h6' href='#' to={'/products/6407f39bb575d3b90bf957df'}>Contact Us</Link>
+                </h6>
+
+              </div>
+
+              <div className="col-md-3 mb-3">
+              <h3 className='fw-semi-bold mb-4'>Everything Else</h3>
+              <h6 className=' mb-3'>
+               <Link className='text-white' href='#' to={'/'}>Community</Link>
+                </h6> 
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/'}>Why Sopa</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/'}>About</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/'}>Discount Program</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white' href='#' to={'/'}>Sopa Blog</Link>
+                </h6>
+                <h6  className=' mb-3'>
+                <Link className='text-white h6' href='#' to={'/'}>Sopa Ambassadors</Link>
+                </h6>
+
+              </div>
+
+            <div className="col-md-3 mt-5 py-5 mb-3">
+              <h6><i className="fa-brands fa-twitter text-white me-2 mb-3">  </i>  Twitter</h6>
+              <h6><i className="fa-brands fa-instagram text-white me-2 mb-3">  </i>  Instagram</h6>
+              <h6><i className="fa-brands fa-facebook-f text-white me-2 mb-3">  </i>  Facebook</h6>
+
+            </div>
+            </div>
+          </div>
         </div>
-      </div>
+ </div>
+
     </footer>
   )
 }

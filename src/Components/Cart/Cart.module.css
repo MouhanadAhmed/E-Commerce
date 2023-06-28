@@ -1,1 +1,18 @@
-.Cart {}
+.counter 
+{
+
+    width: fit-content;
+    overflow: hidden;
+    font-size: 1rem !important;
+}
+
+.counter button:hover{
+    background-color: #02021D !important;
+    color: white !important;
+}
+
+.removeBtn:hover{
+    background-color: red !important;
+    color: white !important;
+    border-color: white !important;
+}

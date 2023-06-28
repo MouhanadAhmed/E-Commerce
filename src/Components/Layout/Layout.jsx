@@ -1,7 +1,7 @@
 import React from 'react'
 import'./Layout.module.css'
 import NavBar from '../NavBar/NavBar'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate,ScrollRestoration  } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 
 export default function Layout({userData ,setUserData}) {
@@ -16,6 +16,12 @@ export default function Layout({userData ,setUserData}) {
     <>
     <NavBar userData={userData} logOut={logOut}/>
     <Outlet/>
+    <ScrollRestoration
+  getKey={(location, matches) => {
+    // default behavior
+    return location.key;
+  }}
+/>
     <Footer/>
     </>
   )
