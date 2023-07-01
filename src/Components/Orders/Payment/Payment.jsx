@@ -44,7 +44,7 @@ export default function Payment() {
         headers
       }).catch((err)=> console.log('Cash order err',err));
       console.log(response.data.session.url);
-      window.open(response.data.session.urls)
+      window.open(response?.data?.session?.urls)
       // navigate('/userProfile')
   }
 

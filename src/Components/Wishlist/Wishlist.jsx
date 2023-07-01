@@ -89,7 +89,7 @@ export default function Wishlist() {
       // console.log('wishlist',wishlist);
         // console.log(wishlist?.filter((item)=> item.id === id));
       // wishlist?.find((item)=> item._id === id)
-      let status = wishlist?.filter((item)=> item.id === id);
+      let status = allProducts?.filter((item)=> item.id === id);
        if (status?.length>0){
         return true
        }else{
