@@ -11,10 +11,7 @@
     border-color: #a88734 #9c7e31 #846a29 !important;
     opacity: 1;
 }
-.blueInput{
-  /* position: relative !important; */
 
-}
 .blueInput:focus{
   border: 1px solid #3184FF !important;
   box-shadow: none !important;
@@ -31,4 +28,11 @@
 }
 .redInput + label{
   color: #F14E2E !important;
+}
+
+
+@media  screen and (max-width:850px){
+  .width{
+    width: 80% !important;
+  }
 }

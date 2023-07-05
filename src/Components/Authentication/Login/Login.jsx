@@ -63,15 +63,15 @@ export default function Login({saveUserData}) {
 
       {error?<div className='alert alert-danger'>{error}</div>:""}
 
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className='w-100'>
       <div className="form-group">
-      <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} `}  placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`}  placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="email" className='fw-semibold'>Email</label>
       </div>
       {formik.errors.email && formik.touched.email?<div className='alert alert-danger'>{formik.errors.email}</div>:"" }
 
       <div className="form-group  position-relative">
-      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput} `} placeholder='Password' id='password'name='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput}  rounded-pill`} placeholder='Password' id='password'name='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="password" className='fw-semibold'>Password</label>
       
       <i className={`far ${eyeBtn} cursor-pointer position-absolute`} id="togglePassword" onClick={()=>toggleShowPassword()}></i>
@@ -80,7 +80,7 @@ export default function Login({saveUserData}) {
       {formik.errors.password && formik.touched.password?<div className='alert alert-danger'>{formik.errors.password}</div>:"" }
 
 
-        <button className='btn w-100 mb-3  bg-prim' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Sign in"}</button>
+        <button className='btn w-100 mb-3  rounded-pill bg-prim' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Sign in"}</button>
       </form>
       <h4 className='fs-6 pb-3'><Link to="http://localhost:3000/forgotPassword" className='text-primary  ms-2' >Forgot your password?</Link> </h4>
       <hr />

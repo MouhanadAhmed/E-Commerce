@@ -7,7 +7,7 @@ import { DynamicStar } from 'react-dynamic-star';
 import { cartContext } from '../../../Context/CartContext';
 import { toast  } from 'react-hot-toast';
 import { Alert } from '../../Helpers/Alert/Alert';
-import { alertService } from '../../Helpers/AlertService/AlertService';
+// import { alertService } from '../../Helpers/AlertService/AlertService';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "slick-carousel/slick/slick.css";
@@ -15,7 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ReactImageMagnify from "react-image-magnify";
 import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
-import Slider, { SliderThumb } from '@mui/material/Slider';
+import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
@@ -24,14 +24,14 @@ import Box from '@mui/material/Box';
 export default function ProductDetails() {
   let {id} =useParams();
   const [productDetails,setProductDetails]=useState();
-  const {addToCart,removeItem,getLoggedUserCart,increment,decrement,counter,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist} =useContext(cartContext);
-  const [autoClose]=useState(true);
-  const [backgroundColor , setBackgroundColor]=useState("bg-main");
-  const [buttonText,setButtonText]=useState("+ Add to Cart");
+  const {addToCart,removeItem,getLoggedUserCart,increment,decrement,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist} =useContext(cartContext);
+  // const [autoClose]=useState(true);
+  // const [backgroundColor , setBackgroundColor]=useState("bg-success");
+  // const [buttonText,setButtonText]=useState("+ Add to Cart");
   const [cartDetails,setCartDetails] =useState(null);
   const isMobile = useMediaQuery({ query: `(max-width: 992px)` });
   const [showBtnText,setShowBtnText]=useState('Show More');
-  const [heartIcon,setHeartIcon]=useState('fa-regular')
+  // const [heartIcon,setHeartIcon]=useState('fa-regular')
   const [wishlist,setWishlist] =useState(null);
 
   const iOSBoxShadow =
@@ -50,19 +50,7 @@ export default function ProductDetails() {
   async function getCart(){
     let response = await getLoggedUserCart();
     if(response?.data?.status === 'success'){
-      setCartDetails(response.data.data);
-      // console.log(id);
-      console.log(checkProductInCart(productDetails));
-      console.log(response.data.data?.products?.find(checkProductInCart)?.product._id);
-      // console.log(response.data.data?.products?.map(checkProductInCart));
-      if(  response.data.data?.products?.find(checkProductInCart)?.product._id === id){
-        setBackgroundColor("bg-danger");
-        setButtonText("Remove from Cart");
-      }else{
-        setBackgroundColor("bg-prim");
-        setButtonText("+ Add to Cart")
-      }
-      // console.log(response.data.data.products);
+      setCartDetails(response.data.data.products);
     }
   }
 
@@ -92,32 +80,25 @@ export default function ProductDetails() {
     // const newArr =cartDetails?.products?.find(checkProductInCart);
     // console.log(newArr?.product?._id);
     setProductDetails(data.data);
-    console.log(data.data);
+    // console.log(data.data);
     getCart();
     }
 
     function checkProductInCart(product){
       
-      if(product?.product?._id ===id){
-        console.log("checkProductInCart",product);
-        return product.product._id;
-      }else{
-        return false;
-      }
+      cartDetails?.find((item)=> item._id === id)
+      let status = cartDetails?.filter((item)=> item.product.id === id);
+       if (status?.length>0){
+        return true
+       }else{
+        return false
+       }
     }
 
     async function addProduct(productId){
-      if (backgroundColor === 'bg-main') {
-        let response = await addToCart(productId);
+      let response = await addToCart(productId);
       if(response?.data.status === 'success'){
         increment();
-        // console.log(response.data);
-        alertService.success('Product Added Successfuly...', {autoClose ,id:'suc' });
-        setTimeout(() => {
-          alertService.clear("suc");
-        }, 2000);
-        setBackgroundColor("bg-danger");
-        setButtonText("Remove from Cart")
         toast.success(response.data.message,{
           duration:3000,
           position:'top-right',
@@ -127,28 +108,23 @@ export default function ProductDetails() {
         });
       }else{
         toast.error('Error',{duration:3000} )
-      }}else{
-        let response = await removeItem(productId);
-        if(response?.data.status === 'success'){
-          decrement();
-          alertService.success('Product Removed Successfuly...', {autoClose ,id:'suc' });
-          setTimeout(() => {
-            alertService.clear("suc");
-          }, 2000);
-          setBackgroundColor("bg-main");
-          setButtonText("+ Add to Cart")
-          toast.success(response.data.message,{
-            duration:3000,
-            position:'top-right',
-            style:
-            {background:'black',
-            color:'white'}
-          });
-        }else{
-          toast.error('Error',{duration:3000} )
-        }
       }
       
+    }
+    async function RemoveProduct(productId){
+      let response = await removeItem(productId);
+          if(response?.data.status === 'success'){
+            decrement();
+            toast.success('Product removed from cart',{
+              duration:3000,
+              position:'top-right',
+              style:
+              {background:'black',
+              color:'white'}
+            });
+          }else{
+            toast.error('Error',{duration:3000} )
+          }
     }
 
   function magnifyImages(props){
@@ -258,15 +234,15 @@ export default function ProductDetails() {
   
   async function getWishlist(){
     let response = await getLoggedUserWishlist();
-    console.log(response);
+    // console.log(response);
     if(response?.data?.status === 'success'){
       setWishlist(response.data.data);
     }
   }
 
   function checkProductInWishlist(id){
-    console.log('wishlist',wishlist);
-      console.log(wishlist?.filter((item)=> item.id === id));
+    // console.log('wishlist',wishlist);
+      // console.log(wishlist?.filter((item)=> item.id === id));
     // wishlist?.find((item)=> item._id === id)
     let status = wishlist?.filter((item)=> item.id === id);
      if (status?.length>0){
@@ -278,10 +254,10 @@ export default function ProductDetails() {
 
   async function addProductToWishlist(productId){
     let response = await addToWishlist(productId);
-    console.log("Hello from add to wishlist");
+    // console.log("Hello from add to wishlist");
     if(response?.data.status === 'success'){
-      setHeartIcon('fa-solid text-danger')
-      console.log("Hello from add to wishlist success");
+      // setHeartIcon('fa-solid text-danger')
+      // console.log("Hello from add to wishlist success");
 
       toast.success(response.data.message,{
         duration:3000,
@@ -299,8 +275,8 @@ export default function ProductDetails() {
   async function removeProductFromWishlist(productId){
     let response = await removeFromWishlist(productId);
     if(response?.data.status === 'success'){
-      setHeartIcon('fa-solid text-danger')
-      console.log('removeProductFromWishlist',response.data.message);
+      // setHeartIcon('fa-solid text-danger')
+      // console.log('removeProductFromWishlist',response.data.message);
       toast.success('Product removed from wishlist',{
         duration:3000,
         position:'top-right',
@@ -325,11 +301,11 @@ export default function ProductDetails() {
   })
 
   useEffect(() =>{
-    console.log("isMobile",isMobile);
+    // console.log("isMobile",isMobile);
     getProductDetails();
     getCart();
     getWishlist();
-  },[])
+  })
 
 
  
@@ -414,9 +390,10 @@ export default function ProductDetails() {
 
            
           </div>
-          <button  onClick={()=>{ addProduct(productDetails.id);}} 
-          className={`btn ${backgroundColor} text-white mb-5 w-100 rounded-pill`}>{buttonText}</button>
-
+          {/* <button  onClick={()=>{ addProduct(productDetails.id);}} 
+          className={`btn ${backgroundColor} text-white mb-5 w-100 rounded-pill`}>{buttonText}</button> */}
+          {checkProductInCart(productDetails.id)  ? <button onClick={()=>RemoveProduct(productDetails.id)} className='btn bg-danger rounded-pill mb-3 text-white w-100'>Remove from cart</button>:<button onClick={()=>addProduct(productDetails.id)} className='btn bg-main rounded-pill mb-3  text-white w-100'>+ Add to cart</button>}
+          
           <p className='h6 mb-5'>Free shipping on orders over $30 & free returns in the US</p>
 
           <div className="accordion accordion-flush" id="accordionFlushExample">
@@ -586,7 +563,7 @@ export default function ProductDetails() {
                 </div>
 
                 <h2 className="accordion-header">
-                  <button id='showMoreBtn' className="accordion-button w-25 rounded-pill mx-auto bg-prim collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMore" aria-expanded="false" aria-controls="collapseMore" onClick={() =>{toggleShowBtn()}}>
+                  <button id='showMoreBtn' className="accordion-button w-auto  rounded-pill mx-auto bg-prim collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMore" aria-expanded="false" aria-controls="collapseMore" onClick={() =>{toggleShowBtn()}}>
                   {showBtnText}
                   </button>
                 </h2>

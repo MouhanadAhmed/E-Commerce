@@ -63,7 +63,7 @@ setAllProducts(newArr2);
 
 useEffect(() =>{
   getFeaturedProducts();
-},[])
+})
   return (
     <> 
     {allProducts?    <div className="container py-4">

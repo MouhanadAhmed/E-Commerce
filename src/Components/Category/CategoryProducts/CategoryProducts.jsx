@@ -135,11 +135,12 @@ export default function CategoryProducts() {
       }
       // console.log(response);
     }
-    getCart();
-    getWishlist();
+
     useEffect(()=>{
         getCategoryProducts(id);
-       
+        getCart();
+        getWishlist();
+      
     },[id])
   return (
     <>
@@ -159,7 +160,7 @@ export default function CategoryProducts() {
                     </Link>
                     <div className="d-flex justify-content-between">
                     <p className='text-primary fs-7'>{product.brand.name}</p>
-                    {checkProductInWishlist(product.id)? <i className={`fa-solid text-danger fa-heart pe-3 cursor-pointer`} onClick={(e)=>{ removeProductFromWishlist(product.id)}}></i>: <i className={`fa-regular fa-heart pe-3 cursor-pointer`} onClick={(e)=>{ addProductToWishlist(product.id)}}></i>}
+                    {checkProductInWishlist(product.id)? <i className={`fa-solid text-danger fa-heart pe-3 cursor-pointer`} onClick={()=>{ removeProductFromWishlist(product.id)}}></i>: <i className={`fa-regular fa-heart pe-3 cursor-pointer`} onClick={()=>{ addProductToWishlist(product.id)}}></i>}
                     </div>
                     <Link to={'/product-details/'+ product.id}>
                     {/* <p className='text-primary fs-7'>{product.brand.name}</p> */}

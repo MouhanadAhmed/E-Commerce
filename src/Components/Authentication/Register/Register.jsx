@@ -72,38 +72,38 @@ export default function Register() {
       <form onSubmit={formik.handleSubmit}>
 
         <div className="form-group">
-        <input type="text" className={`form-control mb-3 py-2 ${styles.blueInput} `} placeholder='Your Name' id='name'name='name' value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+        <input type="text" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} placeholder='Your Name' id='name'name='name' value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
         <label htmlFor="name" className='fw-semibold'>Your name</label>
        
         </div>
-        {formik.errors.name && formik.touched.name?<div className='alert alert-danger'>{formik.errors.name}</div>:"" }
+        {formik.errors.name && formik.touched.name?<div className='alert alert-danger '>{formik.errors.name}</div>:"" }
 
       <div className="form-group">
-      <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} `} placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="email" className='fw-semibold'>Email Address</label>
       </div>
       {formik.errors.email && formik.touched.email?<div className='alert alert-danger'>{formik.errors.email}</div>:"" }
 
       <div className="form-group position-relative">
-      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput} `} placeholder='Password' id='password'name='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput} rounded-pill`} placeholder='Password' id='password'name='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="password" className='fw-semibold'>Password</label>
       <i className={`far ${eyeBtn} cursor-pointer position-absolute`} id="togglePassword" onClick={()=>toggleShowPassword()}></i>
       </div>
      {formik.errors.password && formik.touched.password?<div className='alert alert-danger'>{formik.errors.password}</div>:"" }
 
       <div className="form-group">
-      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput} `} placeholder='rePassword' id='rePassword'name='rePassword' value={formik.values.rePassword} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type={showPassword?"text":"password"} className={`form-control mb-3 py-2 ${styles.redInput} rounded-pill`} placeholder='rePassword' id='rePassword'name='rePassword' value={formik.values.rePassword} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="rePassword" className='fw-semibold '>Re-enter password</label>
       </div>
       {formik.errors.rePassword && formik.touched.rePassword?<div className='alert alert-danger'>{formik.errors.rePassword}</div>:"" }
 
       <div className="form-group">
-      <input type="tel" className={`form-control mb-3 py-2 ${styles.blueInput} `} placeholder='Mobile number' id='phone'name='phone' value={formik.values.phone} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+      <input type="tel" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} placeholder='Mobile number' id='phone'name='phone' value={formik.values.phone} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
       <label htmlFor="phone" className='fw-semibold'>Mobile number</label>
       </div>
       {formik.errors.phone && formik.touched.phone?<div className='alert alert-danger'>{formik.errors.phone}</div>:"" }
 
-      {loading?<button className={`${styles.button} btn w-100 mb-3`} type='submit'><i className='fa fa-spinner fa-spin'></i></button>:<button disabled={!formik.isValid && formik.dirty} className='btn w-100 mb-3 bg-prim' type='submit'>Create Account</button>}
+      {loading?<button className={`${styles.button} btn w-100 mb-3 rounded-pill`} type='submit'><i className='fa fa-spinner fa-spin'></i></button>:<button disabled={!formik.isValid && formik.dirty} className='btn w-100 mb-3 bg-prim rounded-pill' type='submit'>Create Account</button>}
       </form>
       <h4 className='fs-6 border-bottom pb-3 mb-3'>By creating an account, you agree to SOPA's Conditions of Use and Privacy Notice.</h4>
       <h4 className='fs-6 pb-3'>Already have an account? <Link to="http://localhost:3000/Login" className='text-primary text-decoration-underline ms-3' >Sign in</Link> </h4>

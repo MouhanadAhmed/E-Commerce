@@ -1,0 +1,12 @@
+/* .text{
+    font-size: 0.6em !important;
+    margin-bottom: 0 !important;
+} */
+
+
+@media  screen and (max-width:850px){
+    .text{
+        font-size: 0.6em !important;
+        margin-bottom: 0 !important;
+    }
+}

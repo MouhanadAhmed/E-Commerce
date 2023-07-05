@@ -8,15 +8,16 @@ import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import ImageLoader from '../../Helpers/ImageLoader/ImageLoader';
 
 export default function Products() {
   let {id} =useParams();
   
   // console.log("id",id);
   const [allProducts,setAllProducts]=useState();
-  const [subProducts,setSubProducts]=useState();
+  // const [subProducts,setSubProducts]=useState();
   const [numberOfPages,setNumberOfPages]=useState(1);
-  const [page, setPage] = React.useState();
+  const [page, setPage] = useState();
   const [cartDetails,setCartDetails] =useState(null);
   const [wishlist,setWishlist] =useState(null);
 
@@ -46,6 +47,7 @@ export default function Products() {
   async function addProduct(productId){
     let response = await addToCart(productId);
     if(response?.data.status === 'success'){
+      increment();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -74,6 +76,7 @@ export default function Products() {
         }
   }
   async function getProducts(page){
+    // setPage(page);
   let {data} = await axios.get(`${baseUrl}/api/v1/products?page=${page?page:1}`).catch((err)=> 
   {
     console.log('getProducts error',err.message);
@@ -103,6 +106,7 @@ export default function Products() {
     
    });
       console.log("temp",temp);
+      setAllProducts(temp);
    Array.from(temp).length !==0 ? setAllProducts(temp):setAllProducts(data.data);
    if(Array.from(temp).length !==0){
     setAllProducts(temp);
@@ -183,12 +187,17 @@ export default function Products() {
     }
     // console.log(response);
   }
-  getCart();
-  getWishlist();
 
 useEffect(() =>{
   getProducts();
+  getCart();
+  getWishlist();
+
+},[])
+useEffect(() =>{
+  getProducts();
 },[id])
+
   return (
     <> 
     {allProducts?    <div className="container py-4 mb-5">
@@ -198,7 +207,8 @@ useEffect(() =>{
                   <div className="product px-2 py-3 rounded">
                     <Link to={'/product-details/'+ product.id}>
                       <figure className='position-relative rounded'>
-                      <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />
+                      {product.imageCover?<img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />: <ImageLoader></ImageLoader>}
+                      {/* <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} /> */}
                       {product.priceAfterDiscount && product.priceAfterDiscount !== product.price? <span className="sale badge text-bg-danger position-absolute top-0 end-0 rounded">Sale</span>:""}
                       </figure>
 

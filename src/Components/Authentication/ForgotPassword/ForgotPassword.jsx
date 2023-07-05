@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import styles from './ForgotPassword.module.css'
@@ -48,7 +48,7 @@ export default function ForgotPassword() {
 
     <form onSubmit={formik.handleSubmit}>
     <div className="form-group">
-    <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} `}  placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+    <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`}  placeholder='Email Address' id='email'name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
     <label htmlFor="email" className='fw-semibold'>Email</label>
     </div>
     {formik.errors.email && formik.touched.email?<div className='alert alert-danger'>{formik.errors.email}</div>:"" }
@@ -56,7 +56,7 @@ export default function ForgotPassword() {
 
 
 
-      <button className='btn w-100 mb-3  bg-prim' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Send code to your email"}</button>
+      <button className='btn w-100 mb-3 rounded-pill bg-prim' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Send code to your email"}</button>
     </form>
    
   </div>

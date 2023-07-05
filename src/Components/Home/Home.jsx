@@ -13,6 +13,7 @@ import sopa1 from '../../Assets/Images/sopa1.svg'
 import sopa2 from '../../Assets/Images/sopa2.svg'
 import sopa3 from '../../Assets/Images/sopa3.svg'
 import sopa4 from '../../Assets/Images/sopa4.svg'
+import ProductGridLoading from '../Helpers/ProductGridLoading/ProductGridLoading';
 
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
 
       </div>
     </div>
+    {/* {<SalesProducts></SalesProducts>?<SalesProducts></SalesProducts>:<ProductGridLoading></ProductGridLoading>} */}
     <SalesProducts></SalesProducts>
     <div className="container mb-5">
       <div className="row ">

@@ -63,7 +63,7 @@ export default function Shipping() {
     <>
     <div className="container">
         <div className="row py-3">
-            <div className="col-7">
+            <div className="col-sm-7 order-2 order-sm-1 col-12">
                 <h3 className='fw-bold mb-3'>Sopas</h3>
                 <h6 className='mb-5'><span className='text-main'>information <i className="fa-solid fa-angle-right"></i></span>  Shipping <i className="fa-solid fa-angle-right"></i> Payment</h6>
               
@@ -121,7 +121,7 @@ export default function Shipping() {
                </div>
                 <div className="d-flex justify-content-between">
                 <Link to={'/checkout'} className='text-main'><i className="fa-solid fa-angle-left"></i>Return to information</Link>
-                <button className='rounded-pill bg-prim   w-auto' type="submit">Continue to shipping</button>
+                <button className='rounded-pill bg-prim p-2  w-auto' type="submit">Continue to Payment</button>
                 </div>
                         </Form>
  )}
@@ -133,7 +133,8 @@ export default function Shipping() {
 
 
 
-            <div className={`col-5 ${styles.yellowGreen} rounded`}>
+            <div className={`col-sm-5 ${styles.yellowGreen} rounded order-sm-2 order-1 col-12 mb-5`}>
+            <h3 className='fw-bold pt-2 mb-3'>Checkout cart</h3>
             {cartDetails?.products?.map((product)=> <Link key={product.product._id} to={`/product-details/${product.product._id}`} className='row  align-items-center border-bottom py-2'>
      
      <div className="col-2">

@@ -69,7 +69,7 @@ function App() {
       ]},
       {path:"resetPassword", element: <ResetPassword/>},
       {path:"verifyResetCode", element: <VerifyResetCode/>},
-      {path:"userProfile", element: <UserProfile/> ,children:[
+      {path:"userProfile", element: <ProtectedRoute><UserProfile/></ProtectedRoute> ,children:[
         {path:"myDetails", element: <MyDetails/>},
         {path:"myAddressBook", element: <MyAddressBook/>},
         {path:"myOrders", element: <MyOrders/>},

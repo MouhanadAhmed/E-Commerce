@@ -6,6 +6,7 @@ import { cartContext } from '../../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
+import ProductGridLoading from '../../Helpers/ProductGridLoading/ProductGridLoading';
 
 export default function SalesProducts(args) {
 
@@ -173,7 +174,7 @@ useEffect(() =>{
       <div className="row mb-5 justify-content-around">
        
         
-        {allProducts?.map((product)=>
+        {allProducts? allProducts?.map((product)=>
                 <div key={product.id} className="col-md-4  ">
                   <div className="product px-2 py-3 rounded ">
                     <Link to={'/product-details/'+ product.id}>
@@ -229,7 +230,7 @@ useEffect(() =>{
                  
                  
                 </div>
-        ).slice(12,18)}
+        ).slice(12,18) :<ProductGridLoading></ProductGridLoading>}
       </div>
       <Link to={'/FeaturedProducts'} className='d-flex mb-5 justify-content-center'> <button className='btn bg-main  rounded-pill mx-auto'>Shop Now </button>  </Link>
     </div>:<Loading></Loading> }

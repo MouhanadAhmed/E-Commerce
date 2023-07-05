@@ -12,7 +12,27 @@
     --primary-color:#02021D;
     --yellow-green: #81D376;
 }
-
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-color); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow-green); 
+  }
 body{
     font-family: var(--font-family) !important;
 }
@@ -126,9 +146,7 @@ blockquote p::after {
     z-index: 9999;
   }
   
-  .form-group>input{
-    /* border:none; */
-  }
+
   input{
   position: relative !important;
   }
@@ -173,10 +191,11 @@ blockquote p::after {
     background-repeat: no-repeat;
     background-size: var(--bs-accordion-btn-icon-width);
     /* transition: var(--bs-accordion-btn-icon-transition); */
+    padding-left: 1rem;
 }
 .accordion-button:not(.collapsed)::after {
     content: "\f056" !important;
-
+    margin-left: 2rem;
     background-image: var(--bs-accordion-btn-active-icon);
     transform: var(--bs-accordion-btn-icon-transform);
 }
@@ -250,6 +269,12 @@ input[type="range" i]:disabled ,.css-1wcmj94-MuiSlider-root.Mui-disabled{
         left: 80% !important;
     }
     h6, p,button,a{
+        font-size: 0.8em !important;
+    }
+    .slick-slide img{
+        height: 10% !important; 
+    }
+    .accordion-button{
         font-size: 0.5em !important;
     }
 }
@@ -290,3 +315,77 @@ input[type="range" i]:disabled ,.css-1wcmj94-MuiSlider-root.Mui-disabled{
         left: 93% !important;
     }
 }
+
+
+.loader  {
+    animation: rotate 1s infinite;  
+    height: 50px;
+    width: 50px;
+  }
+  
+  .loader:before,
+  .loader:after {   
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 20px;  
+    width: 20px;
+  }
+  .loader:before {
+    animation: ball1 1s infinite;  
+    background-color: #cb2025;
+    box-shadow: 30px 0 0 #f8b334;
+    margin-bottom: 10px;
+  }
+  .loader:after {
+    animation: ball2 1s infinite; 
+    background-color: var(--primary-color);
+    box-shadow: 30px 0 0 #97bf0d;
+  }
+  /* #00a096 */
+  @keyframes rotate {
+    0% { 
+      -webkit-transform: rotate(0deg) scale(0.8); 
+      -moz-transform: rotate(0deg) scale(0.8);
+    }
+    50% { 
+      -webkit-transform: rotate(360deg) scale(1.2); 
+      -moz-transform: rotate(360deg) scale(1.2);
+    }
+    100% { 
+      -webkit-transform: rotate(720deg) scale(0.8); 
+      -moz-transform: rotate(720deg) scale(0.8);
+    }
+  }
+  
+  @keyframes ball1 {
+    0% {
+      box-shadow: 30px 0 0 #f8b334;
+    }
+    50% {
+      box-shadow: 0 0 0 #f8b334;
+      margin-bottom: 0;
+      -webkit-transform: translate(15px,15px);
+      -moz-transform: translate(15px, 15px);
+    }
+    100% {
+      box-shadow: 30px 0 0 #f8b334;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @keyframes ball2 {
+    0% {
+      box-shadow: 30px 0 0 #97bf0d;
+    }
+    50% {
+      box-shadow: 0 0 0 #97bf0d;
+      margin-top: -20px;
+      -webkit-transform: translate(15px,15px);
+      -moz-transform: translate(15px, 15px);
+    }
+    100% {
+      box-shadow: 30px 0 0 #97bf0d;
+      margin-top: 0;
+    }
+  }
