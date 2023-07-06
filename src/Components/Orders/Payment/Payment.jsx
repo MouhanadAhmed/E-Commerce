@@ -39,7 +39,7 @@ export default function Payment() {
       
     async function createCreditOrder(){
       setIsLoading(true);
-      let response = await axios.post(`${baseUrl}/api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`,
+      let response = await axios.post(`${baseUrl}/api/v1/orders/checkout-session/${cartId}?url=https://mouhanadahmed.github.io/E-Commerce/#/allorders`,
       {
           "shippingAddress":{
               "details": address?.details,

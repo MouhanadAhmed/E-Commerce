@@ -88,10 +88,10 @@ export default function Login({saveUserData}) {
 
         <button className='btn w-100 mb-3  rounded-pill bg-prim' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Sign in"}</button>
       </form>
-      <h4 className='fs-6 pb-3'><Link to="http://localhost:3000/forgotPassword" className='text-primary  ms-2' >Forgot your password?</Link> </h4>
+      <h4 className='fs-6 pb-3'><Link to="/forgotPassword" className='text-primary  ms-2' >Forgot your password?</Link> </h4>
       <hr />
       {/* <h4 className='fs-6 border-bottom pb-3 mb-3'>By creating an account, you agree to Amazon's Conditions of Use and Privacy Notice.</h4> */}
-      <h4 className='fs-6 pb-3'>New to SOPA?<Link to="http://localhost:3000/register" className='text-primary text-decoration-underline ms-2' >Create an Account</Link> </h4>
+      <h4 className='fs-6 pb-3'>New to SOPA?<Link to="/register" className='text-primary text-decoration-underline ms-2' >Create an Account</Link> </h4>
      
     </div>
     </> )

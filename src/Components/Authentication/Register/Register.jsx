@@ -111,7 +111,7 @@ export default function Register() {
       {loading?<button className={`${styles.button} btn w-100 mb-3 rounded-pill`} type='submit'><i className='fa fa-spinner fa-spin'></i></button>:<button disabled={!formik.isValid && formik.dirty} className='btn w-100 mb-3 bg-prim rounded-pill' type='submit'>Create Account</button>}
       </form>
       <h4 className='fs-6 border-bottom pb-3 mb-3'>By creating an account, you agree to SOPA's Conditions of Use and Privacy Notice.</h4>
-      <h4 className='fs-6 pb-3'>Already have an account? <Link to="http://localhost:3000/Login" className='text-primary text-decoration-underline ms-3' >Sign in</Link> </h4>
+      <h4 className='fs-6 pb-3'>Already have an account? <Link to="/Login" className='text-primary text-decoration-underline ms-3' >Sign in</Link> </h4>
      
     </div>
     </>
