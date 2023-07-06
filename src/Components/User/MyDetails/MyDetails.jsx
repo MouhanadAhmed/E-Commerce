@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styles from './MyDetails.module.css'
+import {Helmet} from "react-helmet";
 
 export default function MyDetails() {
     
@@ -27,6 +28,10 @@ export default function MyDetails() {
 
   return (
     <>
+                                          <Helmet>
+                <meta charSet="utf-8" />
+                <title>User details</title>
+            </Helmet>
     <div className="container">
         <div className="row py-5">
             <h2 className='ps-3 mb-5'>My Details</h2>

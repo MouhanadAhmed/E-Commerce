@@ -3,9 +3,33 @@
     transform: scale(2);
 
 }
+.text{
+    padding-top: 4rem !important;
+}
 
-.unscale{
-    /* transform: scale(0.5) translateY(-50%); */
-    
+.hype{
+    padding-top: 1.5rem !important;
+}
+
+@media  screen and (min-width:1400px){
+    .text{
+        padding-top: 0px !important;
+    }
+    .hype{
+        padding-top: 3rem !important;
+    }
+}
+
+@media  screen and (min-width:850px) and (max-width: 990px){
+    .text{
+        padding-top: 3rem !important;
+    }
+
+}
+
+@media  screen and (min-width:991px) and (max-width: 1199px){
+    .text{
+        padding-top: 6rem !important;
+    }
 
 }

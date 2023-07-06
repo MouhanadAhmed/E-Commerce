@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Slider from "react-slick";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 
 export default function Categories() {
   
@@ -29,6 +30,10 @@ export default function Categories() {
   };
   return (
     <>
+                          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Categories</title>
+            </Helmet>
     <div className="container py-3 rounded">
     <Slider {...settings}>
         {categories.map((category)=> <div key={category._id}>

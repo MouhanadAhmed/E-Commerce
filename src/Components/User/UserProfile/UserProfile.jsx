@@ -4,6 +4,7 @@ import MyDetails from '../MyDetails/MyDetails';
 import MyAddressBook from '../MyAddressBook/MyAddressBook';
 import MyOrders from '../MyOrders/MyOrders';
 import AccountSettings from '../AccountSettings/AccountSettings';
+import {Helmet} from "react-helmet";
 
 
 
@@ -45,6 +46,10 @@ export default function UserProfile() {
   ]
   return (
     <>
+                                  <Helmet>
+                <meta charSet="utf-8" />
+                <title>User profile</title>
+            </Helmet>
     <div className="container ">
       
         <div className="row py-5">

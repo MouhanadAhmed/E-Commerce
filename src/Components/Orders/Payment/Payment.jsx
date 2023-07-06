@@ -1,19 +1,20 @@
 import React , { useContext, useEffect, useState } from 'react'
 import { cartContext } from '../../../Context/CartContext';
 import { toast } from 'react-hot-toast';
-import Loading from '../../Helpers/Loading/Loading';
+// import Loading from '../../Helpers/Loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Payment.module.css'
 import axios from 'axios';
-import { useFormik, Formik, Field, Form } from 'formik';
+// import { useFormik, Formik, Field, Form } from 'formik';
 import ContentLoading from '../../Helpers/ContentLoading/ContentLoading';
+import {Helmet} from "react-helmet";
 
 export default function Payment() {
     const navigate = useNavigate();
     let {getLoggedUserCart,setCounter,headers,handleBaseUrl,baseUrl} = useContext(cartContext);
     const [cartDetails,setCartDetails] =useState(null);
     const [userAddress,setUserAddress]=useState();
-    const [error,setError]= useState(null);
+    // const [error,setError]= useState(null);
     const [loading,setLoading]=useState(false);
     const [isloading,setIsLoading]=useState(false);
     let cartId = localStorage.getItem('cartId')
@@ -101,6 +102,10 @@ export default function Payment() {
       },[])
   return (
     <>
+                              <Helmet>
+                <meta charSet="utf-8" />
+                <title>Payment</title>
+            </Helmet>
     <div className="container">
         <div className="row py-3">
             <div className="col-sm-7 order-2 order-sm-1 col-12">

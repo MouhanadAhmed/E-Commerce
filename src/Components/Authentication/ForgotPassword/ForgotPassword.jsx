@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import styles from './ForgotPassword.module.css'
+import {Helmet} from "react-helmet";
+
 export default function ForgotPassword() {
 
     const [loading,setLoading]=useState(false);
@@ -41,6 +43,10 @@ export default function ForgotPassword() {
     }
   return (
     <>
+          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Forgot Password</title>
+            </Helmet>
     <div className={`containe my-5 py-5  m-auto rounded p-3 ${styles.width}`}>
     <h3 className='fw-bold mb-3'>Reset your Password</h3>
 

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import styles from './ResetPassword.module.css'
+import {Helmet} from "react-helmet";
 
 export default function ResetPassword() {
 
@@ -58,6 +59,10 @@ export default function ResetPassword() {
     }
 
     return (<>
+              <Helmet>
+                <meta charSet="utf-8" />
+                <title>Reset Password</title>
+            </Helmet>
       <div className={`containe my-5   m-auto rounded p-3 ${styles.width}`}>
         <h3 className='fw-bold mb-3'>Reset Password</h3>
   

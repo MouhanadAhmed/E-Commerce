@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { cartContext } from '../../../Context/CartContext'
 import styles from './MyOrders.module.css'
+import {Helmet} from "react-helmet";
 
 export default function MyOrders() {
   const [orders,setOrders]=useState();
@@ -30,6 +31,10 @@ export default function MyOrders() {
   })
   return (
     <>
+                                  <Helmet>
+                <meta charSet="utf-8" />
+                <title>Orders</title>
+            </Helmet>
     <div className="container">
       <div className="row py-5  ps-3">
         <div className="h3 mb-5">My orders</div>

@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import axios from 'axios'
+import {Helmet} from "react-helmet";
 
 
 export default function Register() {
@@ -64,6 +65,10 @@ export default function Register() {
 
   return (
     <>
+          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Register</title>
+            </Helmet>
     <div className={`container my-5  m-auto rounded p-3 ${styles.width}`}>
       <h3 className='fw-bolder h2  mx-auto mb-4 text-primary'>Create an Account.</h3>
 

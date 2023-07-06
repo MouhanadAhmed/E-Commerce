@@ -5,6 +5,7 @@ import { cartContext } from '../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import Loading from '../Helpers/Loading/Loading';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 
 
 
@@ -53,11 +54,15 @@ export default function Cart() {
 
      useEffect(()=>{
       getCart();
-    },[getCart])
+    },[])
 
 
   return (
     <>
+                          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Shopping Cart</title>
+            </Helmet>
     {cartDetails !== null?     <div className="container  p-4 ">
       <h3>Cart </h3>
       

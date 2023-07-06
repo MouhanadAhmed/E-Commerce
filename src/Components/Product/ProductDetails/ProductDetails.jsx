@@ -20,6 +20,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
+import {Helmet} from "react-helmet";
 
 export default function ProductDetails() {
   let {id} =useParams();
@@ -322,6 +323,10 @@ export default function ProductDetails() {
 
   return (
     <>
+                                  <Helmet>
+                <meta charSet="utf-8" />
+                <title>Product details</title>
+            </Helmet>
     {productDetails?   <> <div className="container py-5 px-5">
     
       <div className="row  flex-column flex-lg-row mb-5">

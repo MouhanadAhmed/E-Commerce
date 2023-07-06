@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './MyAddressBook.module.css'
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
+import {Helmet} from "react-helmet";
 
 export default function MyAddressBook() {
   
@@ -125,6 +126,10 @@ let formik = useFormik({
 
   return (
     <>
+                                          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Address book</title>
+            </Helmet>
     <div className="container">
       <div className="row py-5">
       <h3 className='mb-5'>My Address Book</h3>

@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
 import ProductGridLoading from '../../Helpers/ProductGridLoading/ProductGridLoading';
+import ContentLoading from '../../Helpers/ContentLoading/ContentLoading';
 
 export default function SalesProducts(args) {
 
@@ -15,7 +16,7 @@ export default function SalesProducts(args) {
   const [allProducts,setAllProducts]=useState([]);
   const [cartDetails,setCartDetails] =useState(null);
   const [wishlist,setWishlist] =useState(null);
-
+  const [fetchingData,setFetchingData]=useState(true);
 
 
 
@@ -83,12 +84,14 @@ export default function SalesProducts(args) {
   );
   // console.log(data.data,"All products");
   setAllProducts(data.data);
+  // setFetchingData(false);
   // getSalesProducts();
   const newArr = data.data?.filter((product)=>{
     return product.priceAfterDiscount && product.priceAfterDiscount !== product.price
 })
 // console.log(newArr,"Sales Products");
 setAllProducts(newArr);
+
 // console.log(args,"args");
 // console.log("args length",Object.keys(args).length);
  if(Object.keys(args).length !== 0){
@@ -160,7 +163,7 @@ useEffect(() =>{
   getFeaturedProducts();
   getCart();
   getWishlist();
-})
+},[])
   return (
     <> 
     {allProducts?    <div className="container py-4">
@@ -174,7 +177,14 @@ useEffect(() =>{
       <div className="row mb-5 justify-content-around">
        
         
-        {allProducts? allProducts?.map((product)=>
+        {fetchingData?<> 
+         <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          <div className="col-md-4 "><ProductGridLoading></ProductGridLoading></div>
+          </>: allProducts?.map((product)=>
                 <div key={product.id} className="col-md-4  ">
                   <div className="product px-2 py-3 rounded ">
                     <Link to={'/product-details/'+ product.id}>
@@ -230,7 +240,7 @@ useEffect(() =>{
                  
                  
                 </div>
-        ).slice(12,18) :<ProductGridLoading></ProductGridLoading>}
+        ).slice(12,18) }
       </div>
       <Link to={'/FeaturedProducts'} className='d-flex mb-5 justify-content-center'> <button className='btn bg-main  rounded-pill mx-auto'>Shop Now </button>  </Link>
     </div>:<Loading></Loading> }

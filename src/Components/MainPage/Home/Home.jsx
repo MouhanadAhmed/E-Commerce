@@ -13,11 +13,15 @@ import sopa1 from '../../../Assets/Images/sopa1.svg'
 import sopa2 from '../../../Assets/Images/sopa2.svg'
 import sopa3 from '../../../Assets/Images/sopa3.svg'
 import sopa4 from '../../../Assets/Images/sopa4.svg'
-
+import {Helmet} from "react-helmet";
 
 export default function Home() {
   return (
     <>
+    <Helmet>
+                <meta charSet="utf-8" />
+                <title>Sopa Home</title>
+            </Helmet>
     <MainSlider></MainSlider>
     <div className="container mb-5">
       <div className="row bg-smoke rounded-2 py-3">
@@ -50,7 +54,7 @@ export default function Home() {
         <div className="col-lg-6 bg-light  rounded me-5 h-75 mb-5 pt-5">
           <h3 className='text-center h1 fw-bold mb-5 pt-3 mt-5'>The Hype is real...</h3>
           <div className="row mb-0 pb-0  d-flex  align-items-center">
-            <div className="col-md-6 pt-4 px-0">
+            <div className={`col-md-6  px-0  ${styles.hype}`}>
               <img src={require('../../../Assets/Images/50023042_01.jpeg')} className='w-100 pt-5 h-100 rounded' alt="" />
             </div>
             <div className="col-md-6  pt-4 pb-0">
@@ -138,7 +142,7 @@ export default function Home() {
                           <Link to={'/product-details/6408d5046406cd15828e8eec'} >
                           <div className="card border-0 py-0 my-0" style={{'maxHeight': '41rem'}}>
                               <img src='https://res.cloudinary.com/dwp0imlbj/image/upload/Route-Academy-products/1678300420239-1.jpeg' className="card-img-top mb-5 w-50 mx-auto" alt="..."/>
-                              <div className="card-body mt-4 pt-5">
+                              <div className={`card-body mt-4  ${styles.text}`}>
                       <p className='fw-semibold text-truncate '>IdeaPad 5 Laptop with 15.6 inch Core i5-1135G7 8 GB ram 512 GB SSD 4 GB Intel Xe Graphics Windows 11 English/Arabic Abyss Blue</p>
                             
                               <div className="d-flex w-100 mx-auto align-items-center  overflow-hidden p-2">
@@ -162,7 +166,7 @@ export default function Home() {
                           <Link to={'/product-details/6408de536406cd15828e8f10'} >
                           <div className="card border-0 py-0 my-0" style={{'maxHeight': '41rem'}}>
                               <img src='https://res.cloudinary.com/dwp0imlbj/image/upload/Route-Academy-products/1678302803185-10.jpeg' className="card-img-top w-50 mb-5 mx-auto" alt="..."/>
-                              <div className="card-body mt-4 pt-5">
+                              <div className={`card-body mt-4  ${styles.text}`}>
                       <p className='fw-semibold text-truncate '>WH-CH510 Wireless On-Ear Bluetooth Headphones Black</p>
                             
                               <div className="d-flex w-100 mx-auto align-items-center overflow-hidden p-2">

@@ -1,6 +1,6 @@
 
 import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Home from './Components/MainPage/Home/Home';
 import Layout from './Components/Layout/Layout';
 import Login from './Components/Authentication/Login/Login';
@@ -52,7 +52,7 @@ function App() {
 
 
 
-  const routes= createBrowserRouter([
+  const routes= createHashRouter([
     { path:"",
     element: <Layout setUserData={setUserData} userData={userData}/> ,
     children:[

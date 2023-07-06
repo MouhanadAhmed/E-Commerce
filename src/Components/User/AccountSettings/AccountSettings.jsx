@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import toast, { Toaster } from 'react-hot-toast';
+import {Helmet} from "react-helmet";
 
 
 export default function AccountSettings() {
@@ -181,6 +182,10 @@ async function updateLoggedUserPassword(values){
   })
   return (
     <>
+                                      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Account settings</title>
+            </Helmet>
     <div className="container">
         <div className="row py-5">
             <h2 className='ps-3 mb-5'>Account settings</h2>

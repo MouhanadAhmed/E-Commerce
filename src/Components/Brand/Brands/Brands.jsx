@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Loading from '../../Helpers/Loading/Loading';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 
 
 export default function Brands () {
@@ -17,6 +18,10 @@ export default function Brands () {
 
   return (
         <>
+                      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Brands</title>
+            </Helmet>
         {allBrands?    
         
         <div className='container py-3'>

@@ -9,6 +9,7 @@ import { DynamicStar } from 'react-dynamic-star';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ImageLoader from '../../Helpers/ImageLoader/ImageLoader';
+import {Helmet} from "react-helmet";
 
 export default function Products() {
   let {id} =useParams();
@@ -200,6 +201,10 @@ useEffect(() =>{
 
   return (
     <> 
+                                      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Products</title>
+            </Helmet>
     {allProducts?    <div className="container py-4 mb-5">
       <div className="row">
         {allProducts.map((product)=>
@@ -261,7 +266,7 @@ useEffect(() =>{
                 </div>
         )}
             {numberOfPages>1 ?<>
-            <div className="col-12 pt-4">
+            <div className="col-12 pt-4 d-flex justify-content-center">
             <Stack spacing={2}>
       <Pagination count={numberOfPages} page={page}  onChange={handleChange} showFirstButton showLastButton />
     </Stack>

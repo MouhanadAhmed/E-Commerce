@@ -24,6 +24,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-dynamic-star": "^0.0.2",
+    "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.0",
     "react-image-gallery": "^1.2.11",
     "react-image-magnify": "^2.7.4",

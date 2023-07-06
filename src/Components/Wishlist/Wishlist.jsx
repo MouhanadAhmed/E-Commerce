@@ -6,6 +6,7 @@ import { cartContext } from '../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import Loading from '../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
+import {Helmet} from "react-helmet";
 
 export default function Wishlist() {
 
@@ -139,6 +140,10 @@ export default function Wishlist() {
 
   return (
     <>
+                              <Helmet>
+                <meta charSet="utf-8" />
+                <title>Wishlist</title>
+            </Helmet>
     <div className="container">
         <div className="row">
             <h2>Wishlist</h2>

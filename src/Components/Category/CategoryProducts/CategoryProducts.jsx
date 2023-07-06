@@ -5,6 +5,7 @@ import { cartContext } from '../../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
+import {Helmet} from "react-helmet";
 
 export default function CategoryProducts() {
     let {id} =useParams();
@@ -144,6 +145,10 @@ export default function CategoryProducts() {
     },[id])
   return (
     <>
+                          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Category products</title>
+            </Helmet>
  {allCategoryProducts?    <div className="container py-4">
       <div className="row">
         {allCategoryProducts.length !== 0?<> {allCategoryProducts.map((product)=>

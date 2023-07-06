@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import styles from '../ForgotPassword/ForgotPassword.module.css'
+import {Helmet} from "react-helmet";
 
 export default function VerifyResetCode() {
     const [loading,setLoading]=useState(false);
@@ -45,6 +46,10 @@ export default function VerifyResetCode() {
 
   return (
     <>
+              <Helmet>
+                <meta charSet="utf-8" />
+                <title>Verify reset code</title>
+            </Helmet>
     <div className={`containe my-5 py-5  m-auto rounded p-3 ${styles.width}`}>
     <h2 className='fw-bold mb-4'>Verify Your Reset Code</h2>
 

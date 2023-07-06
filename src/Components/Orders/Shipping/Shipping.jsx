@@ -6,14 +6,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Shipping.module.css'
 import axios from 'axios';
 import { useFormik, Formik, Field, Form } from 'formik';
+import ContentLoading from '../../Helpers/ContentLoading/ContentLoading';
+import {Helmet} from "react-helmet";
 
 export default function Shipping() {
     const navigate = useNavigate();
     let {getLoggedUserCart,setCounter,headers,handleBaseUrl,baseUrl} = useContext(cartContext);
     const [cartDetails,setCartDetails] =useState(null);
     const [userAddress,setUserAddress]=useState();
-    const [error,setError]= useState(null);
-    const [loading,setLoading]=useState(false);
+    // const [error,setError]= useState(null);
+    // const [loading,setLoading]=useState(false);
 
 
  
@@ -61,6 +63,10 @@ export default function Shipping() {
       },[])
   return (
     <>
+                                  <Helmet>
+                <meta charSet="utf-8" />
+                <title>Shipping</title>
+            </Helmet>
     <div className="container">
         <div className="row py-3">
             <div className="col-sm-7 order-2 order-sm-1 col-12">
@@ -135,7 +141,7 @@ export default function Shipping() {
 
             <div className={`col-sm-5 ${styles.yellowGreen} rounded order-sm-2 order-1 col-12 mb-5`}>
             <h3 className='fw-bold pt-2 mb-3'>Checkout cart</h3>
-            {cartDetails?.products?.map((product)=> <Link key={product.product._id} to={`/product-details/${product.product._id}`} className='row  align-items-center border-bottom py-2'>
+            {cartDetails? cartDetails?.products?.map((product)=> <Link key={product.product._id} to={`/product-details/${product.product._id}`} className='row  align-items-center border-bottom py-2'>
      
      <div className="col-2">
        <img src={product.product.imageCover} className='w-100  rounded-2' alt={product.product.title} />
@@ -153,7 +159,7 @@ export default function Shipping() {
        </div>
      </div>
      
-   </Link>)}
+   </Link>):<><ContentLoading></ContentLoading><ContentLoading></ContentLoading><ContentLoading></ContentLoading> </> }
    <div className="d-flex justify-content-between pt-3 mb-3">
    <h6 className='h3   '>Subtotal </h6> 
    <h6 className='h3   '> {cartDetails?.totalCartPrice?.toLocaleString()} EGP</h6> 

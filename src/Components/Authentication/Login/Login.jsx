@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import styles from './Login.module.css'
+import {Helmet} from "react-helmet";
+
 export default function Login({saveUserData}) {
 
   const [loading,setLoading]=useState(false);
@@ -58,6 +60,10 @@ export default function Login({saveUserData}) {
   }
 
   return (<>
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Login</title>
+            </Helmet>
     <div className={`containe my-5   m-auto rounded p-3 ${styles.width}`}>
       <h3 className='fw-bold mb-3'>Sign in</h3>
 
