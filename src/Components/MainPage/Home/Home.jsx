@@ -1,10 +1,10 @@
-import React from 'react';
-import MainSlider from '../MainSlider/MainSlider';
+import React , { Suspense, lazy } from 'react';
+// import MainSlider from '../MainSlider/MainSlider';
 import { Link } from 'react-router-dom';
 import LcWaikiki from '../../../Assets/Images/1678286238428.svg';
 import defacto from '../../../Assets/Images/defacto.svg';
 import jackjones from '../../../Assets/Images/jj.svg';
-import SalesProducts from '../..//Product/SalesProducts/SalesProducts';
+// import SalesProducts from '../..//Product/SalesProducts/SalesProducts';
 import { DynamicStar } from 'react-dynamic-star';
 import styles from './Home.module.css'
 import storyPhoto from '../../../Assets/Images/StoryPhoto.svg'
@@ -14,6 +14,11 @@ import sopa2 from '../../../Assets/Images/sopa2.svg'
 import sopa3 from '../../../Assets/Images/sopa3.svg'
 import sopa4 from '../../../Assets/Images/sopa4.svg'
 import {Helmet} from "react-helmet";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+const SalesProducts = lazy(() => import('../..//Product/SalesProducts/SalesProducts'));
+const Loading = lazy(() => import('../../Helpers/Loading/Loading.jsx'));
+const MainSlider = lazy(() => import('../MainSlider/MainSlider'));
 
 export default function Home() {
   return (
@@ -48,14 +53,16 @@ export default function Home() {
 
       </div>
     </div>
+    <Suspense fallback={<Loading></Loading>}>
     <SalesProducts></SalesProducts>
+    </Suspense>
     <div className="container mb-5">
       <div className="row ">
         <div className="col-lg-6 bg-light  rounded me-5 h-75 mb-5 pt-5">
           <h3 className='text-center h1 fw-bold mb-5 pt-3 mt-5'>The Hype is real...</h3>
           <div className="row mb-0 pb-0  d-flex  align-items-center">
             <div className={`col-md-6  px-0  ${styles.hype}`}>
-              <img src={require('../../../Assets/Images/50023042_01.jpeg')} className='w-100 pt-5 h-100 rounded' alt="" />
+              <LazyLoadImage  src={require('../../../Assets/Images/50023042_01.jpeg')} className='w-100 pt-5 h-100 rounded' alt="The Hype is real"  effect="blur"/>
             </div>
             <div className="col-md-6  pt-4 pb-0">
           <div className="d-flex align-items-center justify-content-around">
@@ -68,7 +75,7 @@ export default function Home() {
         </div>
        <div className=" col-lg-5 rounded bg-light h-50 pb-0 mb-5 px-0">
        <Link to={'/product-details/6428c6a9dc1175abc65ca01f'} >
-          <img src={require('../../../Assets/Images/3214066-800-800.jpg')} className=' img-fluid   px-0 rounded mb-2' alt="" />
+          <LazyLoadImage src={require('../../../Assets/Images/3214066-800-800.jpg')} className=' img-fluid   px-0 rounded mb-2' alt="Hoops 3.0 Low Classic Vintage Shoes" effect="blur"/>
           <div className="d-flex justify-content-between align-items-center  px-2">
           <div className="left">
           <p className='fw-semibold'>Hoops 3.0 Low Classic Vintage Shoes</p>
@@ -89,7 +96,7 @@ export default function Home() {
          <p className='mx-auto w-auto d-flex justify-content-center' > <span className="badge text-bg-light w-auto mx-auto text-center rounded-pill px-3 p-2 mb-5">New</span></p> 
           <h2 className='text-center h1 fw-bolder w-100 mb-5'>Introducing Laptop & Accessories</h2>
           <div className="row mx-auto  ">
-          <img className='img-fluid mb-5 px-0' src={require('../../../Assets/Images/Laptop-accessories2.jpg')} alt="best-laptop-accessories" />
+          <LazyLoadImage className='img-fluid mb-5 px-0' src={require('../../../Assets/Images/Laptop-accessories2.jpg')} alt="best-laptop-accessories" effect="blur"/>
 
           <h3 className='h2 py-5 fw-bold'> Laptops</h3>
           <div className="col-lg-3 px-0 me-4 rounded h-25 px-2">
@@ -97,9 +104,9 @@ export default function Home() {
 
               <div className="col-md-12 mb-4 bg-white rounded px-0 overflow-hidden">
               <Link to={'/product-details/6408d6626406cd15828e8ef2'}  className='rounded'>
-              <div className="card rounded  " style={{'maxHeight': '60.5rem'}}>
-              
-                <img src='https://res.cloudinary.com/dwp0imlbj/image/upload/Route-Academy-products/1678300769731-1.jpeg' className={`card-img-top mb-5  w-25 mx-auto h-25 py-5 px-0  ${styles.scale} `} alt="..."/>
+              <div className="card rounded " style={{'maxHeight': '60.5rem'}}>
+
+                <img src='https://res.cloudinary.com/dwp0imlbj/image/upload/Route-Academy-products/1678300769731-1.jpeg' className={`card-img-top mb-5  w-25 mx-auto h-25 py-5 px-0  ${styles.scale} `} alt="IdeaPad Gaming 3 15IHU6 Laptop"/>
 
                 
                   <div className="card-body mt-2 ">
@@ -239,8 +246,8 @@ export default function Home() {
       <div className="row py-5 mb-5">
         <div className="col-md-8">
           <div className="row">
-            <div className="col-md-6 px-0 mx-0">
-              <img src={storyPhoto} className='w-100' alt="storyPhoto" />
+            <div className="col-md-6 px-0 mx-0  overflow-hidden rounded-start">
+              <img src={storyPhoto} className={` w-100 ${styles.sopaImage}`} alt="storyPhoto" />
             </div>
             <div className="col-md-6 bg-prim d-flex flex-column align-items-center justify-conttent-center py-5 ">
                   <div className="w-50 my-auto d-flex flex-column align-items-center justify-conttent-center">
@@ -258,7 +265,7 @@ export default function Home() {
           <p className='h6 text-center fw-semibold mt-2 pt-3 w-75 pb-3'> <span className='d-block'> SOPA</span>
               was born out of a simple yet powerful concept - creating a shoe that you would choose to wear every single day, and they've brought this idea to life in the bustling city of 
               New York.</p>
-              <button className='bg-prim rounded-pill mb-3'>Learn more</button>
+              <button className='bg-prim rounded-pill mb-3 p-2'>Learn more</button>
           </div>
 
         </div>
@@ -267,8 +274,8 @@ export default function Home() {
       <div className="row">
         <div className="col-md-8">
           <div className="row">
-            <div className="col-md-6 px-0 mx-0">
-              <img src={content} className='w-100' alt="storyPhoto" />
+            <div className="col-md-6 px-0 mx-0 overflow-hidden rounded-start">
+              <img src={content} className={` w-100 ${styles.sopaImage}`} alt="storyPhoto" />
             </div>
             <div className="col-md-6 bg-prim d-flex flex-column align-items-center justify-conttent-center py-3 ">
                   <div className="w-75 my-auto d-flex flex-column align-items-center justify-conttent-center">
@@ -284,7 +291,7 @@ export default function Home() {
         <div className="col-md-4 border rounded-end d-flex flex-column align-items-center justify-conttent-center">
           <div className="  d-flex flex-column align-items-center my-auto ">
           <p className='h5 text-center fw-semibold mt-2 mb-3 pt-5 w-75 pb-3'> Read our co-founder Sidra’s story about struggle, chasing dreams, and making shoes.</p>
-              <button className='bg-prim rounded-pill mb-2'>Learn more</button>
+              <button className='bg-prim rounded-pill mb-2 p-2 '>Learn more</button>
           </div>
 
         </div>
@@ -294,21 +301,30 @@ export default function Home() {
         <h2 className='mx-auto h1 fw-bold w-50 text-center mb-5 pt-5'>SOPA in Everyday</h2>
         <p className='mx-auto fw-bold w-75 text-center mb-5'>@sopa</p>
         <div className="row d-flex justify-content-around mx-auto">
-          <div className="col-md-6 col-lg-3 mb-3  ">
-          <img src={sopa1} className=' w-100' alt="" />
+          <div className="col-md-6 col-lg-3 mb-3 ">
+            <figure className='overflow-hidden rounded rounded-4'>
+            <LazyLoadImage src={sopa1} width={"100%"} height={"100%"} className={` overflow-hidden ${styles.sopaImage}`} alt="sopa1" effect='blur'></LazyLoadImage>
+            </figure>
+          {/* <img src={sopa1} className={` w-100 ${styles.sopaImage}`} alt="sopa1" /> */}
 
           </div>
-          <div className="col-md-6 col-lg-3 mb-3 ">
-          <img src={sopa2} className=' w-100' alt="" />
-
+          <div className="col-md-6 col-lg-3 mb-3 overflow-hidden rounded">
+          {/* <img src={sopa2} className={` w-100 ${styles.sopaImage}   rounded rounded-2`} alt="sopa2" /> */}
+          <figure className='overflow-hidden rounded rounded-4'>
+            <LazyLoadImage src={sopa2} width={"100%"} height={"100%"} className={` overflow-hidden ${styles.sopaImage}`} alt="sopa2" effect='blur'></LazyLoadImage>
+            </figure>
           </div>
-          <div className="col-md-6 col-lg-3 mb-3 ">
-          <img src={sopa3} className=' w-100' alt="" />
-
+          <div className="col-md-6 col-lg-3 mb-3 overflow-hidden rounded">
+          {/* <img src={sopa3} className={` w-100 ${styles.sopaImage}`} alt="sopa3" /> */}
+          <figure className='overflow-hidden rounded rounded-4'>
+            <LazyLoadImage src={sopa3} width={"100%"} height={"100%"} className={` overflow-hidden ${styles.sopaImage}`} alt="sopa3" effect='blur'></LazyLoadImage>
+            </figure>
           </div>
-          <div className="col-md-6 col-lg-3 mb-3 ">
-          <img src={sopa4} className=' w-100' alt="" />
-
+          <div className="col-md-6 col-lg-3 mb-3 overflow-hidden rounded">
+          {/* <img src={sopa4} className={` w-100 ${styles.sopaImage}`} alt="sopa4" /> */}
+          <figure className='overflow-hidden rounded rounded-4'>
+            <LazyLoadImage src={sopa4} width={"100%"} height={"100%"} className={` overflow-hidden ${styles.sopaImage}`} alt="sopa4" effect='blur'></LazyLoadImage>
+            </figure>
           </div>
 
 

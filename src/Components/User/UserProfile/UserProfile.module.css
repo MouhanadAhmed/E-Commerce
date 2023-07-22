@@ -17,7 +17,7 @@
     background-color: #C1F651 !important;
     color: white !important;
     transition: all 0.5s;
-    border: none !important;
+    /* border: none !important; */
 }
 .link:active,.link.active , #active,button .active{
     background: #02021D !important;

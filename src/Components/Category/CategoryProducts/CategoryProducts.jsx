@@ -6,39 +6,89 @@ import { toast } from 'react-hot-toast';
 import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
 import {Helmet} from "react-helmet";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function CategoryProducts() {
     let {id} =useParams();
 
-    let {addToCart,increment,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist,getLoggedUserCart,removeItem,decrement} =useContext(cartContext);
+    let {addToCart,baseUrl,handleBaseUrl,addToWishlist,removeFromWishlist,removeItem,userWishlist,userCart} =useContext(cartContext);
 
     const [allCategoryProducts,setAllCategoryProducts]=useState();
-    const [cartDetails,setCartDetails] =useState(null);
-    const [wishlist,setWishlist] =useState(null);
 
-    async function getCart(){
-      let response = await getLoggedUserCart();
-      if(response?.data?.status === 'success'){
-        setCartDetails(response.data.data.products);
-      }
+    async function getCategoryProducts(id){
+      let {data} =    await axios.get(`${baseUrl}/api/v1/products?category[in][]=${id}`).catch((err)=> 
+      {
+        console.log('getCategoryProducts error',err.message);
+        if (err.code === "ERR_NETWORK") {
+          handleBaseUrl();
+        }
     }
-  
-    function checkProductInCart(id){
-      // console.log('cartDetails',cartDetails);
-        // console.log(cartDetails?.filter((item)=> item.product.id === id));
-      cartDetails?.find((item)=> item._id === id)
-      let status = cartDetails?.filter((item)=> item.product.id === id);
+      );
+      setAllCategoryProducts(data.data);
+     //  console.log(data);
+     }
+
+
+     function checkProductInCart(id){
+      let status = userCart?.filter((item)=> item === id);
        if (status?.length>0){
         return true
        }else{
         return false
        }
     }
-
+  
+  
     async function addProduct(productId){
-        let response = await addToCart(productId);
+      let response = await addToCart(productId);
+      if(response?.data.status === 'success'){
+        toast.success(response.data.message,{
+          duration:3000,
+          position:'top-right',
+          style:
+          {background:'black',
+          color:'white'}
+        });
+      }else{
+        toast.error('Error',{duration:3000} )
+      }
+    }
+  
+    async function RemoveProduct(productId){
+      let response = await removeItem(productId);
+          if(response?.data.status === 'success'){
+            // decrement();
+            toast.success('Product removed from cart',{
+              duration:3000,
+              position:'top-right',
+              style:
+              {background:'black',
+              color:'white'}
+            });
+          }else{
+            toast.error('Error',{duration:3000} )
+          }
+    }
+  
+
+      function checkProductInWishlist(id){
+        // console.log('wishlist',wishlist);
+        //   console.log(wishlist?.filter((item)=> item.id === id));
+        // wishlist?.find((item)=> item._id === id)
+        let status = userWishlist?.filter((item)=> item === id);
+         if (status?.length>0){
+          return true
+         }else{
+          return false
+         }
+      }
+    
+      async function addProductToWishlist(productId){
+        let response = await addToWishlist(productId);
         if(response?.data.status === 'success'){
-          increment();
+          // setHeartIcon('fa-solid text-danger')
+          // getFeaturedProducts();
           toast.success(response.data.message,{
             duration:3000,
             position:'top-right',
@@ -49,99 +99,29 @@ export default function CategoryProducts() {
         }else{
           toast.error('Error',{duration:3000} )
         }
-        console.log(response);
+        // console.log(response);
       }
-
-      async function RemoveProduct(productId){
-        let response = await removeItem(productId);
-            if(response?.data.status === 'success'){
-              decrement();
-              toast.success('Product removed from cart',{
-                duration:3000,
-                position:'top-right',
-                style:
-                {background:'black',
-                color:'white'}
-              });
-            }else{
-              toast.error('Error',{duration:3000} )
-            }
+    
+      async function removeProductFromWishlist(productId){
+        let response = await removeFromWishlist(productId);
+        if(response?.data.status === 'success'){
+          // setHeartIcon('fa-solid text-danger')
+          // getFeaturedProducts();
+          toast.success(response.data.message,{
+            duration:3000,
+            position:'top-right',
+            style:
+            {background:'black',
+            color:'white'}
+          });
+        }else{
+          toast.error('Error',{duration:3000} )
+        }
+        // console.log(response);
       }
-
-    async function getCategoryProducts(id){
-     let {data} =    await axios.get(`${baseUrl}/api/v1/products?category[in][]=${id}`).catch((err)=> 
-     {
-       console.log('getCategoryProducts error',err.message);
-       if (err.code === "ERR_NETWORK") {
-         handleBaseUrl();
-       }
-   }
-     );
-     setAllCategoryProducts(data.data);
-    //  console.log(data);
-    }
-
-    async function getWishlist(){
-      let response = await getLoggedUserWishlist();
-      // console.log(response);
-      if(response?.data?.status === 'success'){
-        setWishlist(response.data.data);
-      }
-    }
-  
-    function checkProductInWishlist(id){
-      // console.log('wishlist',wishlist);
-        // console.log(wishlist?.filter((item)=> item.id === id));
-      // wishlist?.find((item)=> item._id === id)
-      let status = wishlist?.filter((item)=> item.id === id);
-       if (status?.length>0){
-        return true
-       }else{
-        return false
-       }
-    }
-  
-    async function addProductToWishlist(productId){
-      let response = await addToWishlist(productId);
-      if(response?.data.status === 'success'){
-        // setHeartIcon('fa-solid text-danger')
-  
-        toast.success(response.data.message,{
-          duration:3000,
-          position:'top-right',
-          style:
-          {background:'black',
-          color:'white'}
-        });
-      }else{
-        toast.error('Error',{duration:3000} )
-      }
-      // console.log(response);
-    }
-  
-    async function removeProductFromWishlist(productId){
-      let response = await removeFromWishlist(productId);
-      if(response?.data.status === 'success'){
-        // setHeartIcon('fa-solid text-danger')
-  
-        toast.success(response.data.message,{
-          duration:3000,
-          position:'top-right',
-          style:
-          {background:'black',
-          color:'white'}
-        });
-      }else{
-        toast.error('Error',{duration:3000} )
-      }
-      // console.log(response);
-    }
 
     useEffect(()=>{
         getCategoryProducts(id);
-        getCart();
-        getWishlist();
-      
     },[id])
   return (
     <>
@@ -156,7 +136,8 @@ export default function CategoryProducts() {
                   <div className="product px-2 py-3 rounded">
                     <Link to={'/product-details/'+ product.id}>
                       <figure className='position-relative rounded'>
-                      <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />
+                        <LazyLoadImage src={product.imageCover} className='w-100  rounded ' alt={product.category.name} effect='blur' ></LazyLoadImage>
+                      {/* <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} /> */}
                       {product.priceAfterDiscount && product.priceAfterDiscount !== product.price? <span className="sale badge text-bg-danger position-absolute top-0 end-0 rounded">Sale</span>:""}
                       </figure>
 

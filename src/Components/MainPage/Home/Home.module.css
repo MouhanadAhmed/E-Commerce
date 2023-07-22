@@ -33,3 +33,9 @@
     }
 
 }
+.sopaImage{
+    transition: all 0.5s !important;
+}
+.sopaImage:hover {
+    scale:1.2;
+}

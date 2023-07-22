@@ -44,7 +44,7 @@ export default function Shipping() {
 
        function getShippingAddress(){
         let address =userAddress?.find((item)=> item._id === localStorage.getItem('addressId'));
-        console.log("address",address?.details);
+        // console.log("address",address?.details);
         return address?.details
        }
 
@@ -117,7 +117,7 @@ export default function Shipping() {
                <div className="d-flex justify-content-between px-3 pt-3 align-items-center">
                <div className=" d-flex align-items-center">
              <Field type="radio" name="picked" value='150' />
-               <h6 className='ps-2 '>Aramex espress</h6>
+               <h6 className='ps-2 '>Aramex express</h6>
              </div>
                 <h6>EGP 150</h6>
                </div>

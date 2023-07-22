@@ -24,7 +24,7 @@ export default function ScrollToTop() {
 
     return (
         <div>
-                {backToTopBtn && <button className={`${styles.scrollup} rounded-circle shadow-lg bg-prim `} onClick={scrollUp}><i className="fa-solid p-3 fa-angles-up  "></i></button>}
+                {backToTopBtn && <button className={`${styles.scrollup} rounded-circle shadow-lg bg-prim `} onClick={scrollUp}><i className="fa-solid p-1  fa-angles-up  "></i></button>}
       </div>
     )
 

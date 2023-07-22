@@ -3,7 +3,7 @@ import styles from './AccountSettings.module.css'
 import axios from 'axios'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import {Helmet} from "react-helmet";
 
 

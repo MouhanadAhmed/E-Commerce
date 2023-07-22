@@ -16,11 +16,11 @@ export default function Register() {
 
 
   let validationSchema = Yup.object({
-    name: Yup.string().required("Name is required").min(3,"min 3 charcters").max(15,"maximum 15 charcters"),
+    name: Yup.string().required("Name is required , hint: min 3 charcters, maximum 15 charcters").min(3,"min 3 charcters").max(15,"maximum 15 charcters"),
     email:Yup.string().email("Invalid Email").required("Email is required"),
-    password:Yup.string().matches(/^[A-Z][a-z0-9]{3,8}$/,"Invalid Password").required("Password is required"),
-    rePassword:Yup.string().required("Password is required").oneOf([Yup.ref('password')],"RePassword must match password"),
-    phone:Yup.string().required("Phone is required").matches(/^01[0125][0-9]{8}$/,"Invalid Phone"),
+    password:Yup.string().matches(/^[A-Z][a-z0-9]{3,8}$/,"Invalid Password").required("Password is required, hint: must start with capital letter followed by 3 to 8 letters or numbers"),
+    rePassword:Yup.string().required("RePassword must match password").oneOf([Yup.ref('password')],"RePassword must match password"),
+    phone:Yup.string().required("Phone is required , Egyptian mobile numbers only").matches(/^01[0125][0-9]{8}$/,"Invalid Phone"),
   })
 
 
@@ -76,10 +76,9 @@ export default function Register() {
 
       <form onSubmit={formik.handleSubmit}>
 
-        <div className="form-group">
-        <input type="text" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} placeholder='Your Name' id='name'name='name' value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+        <div className="form-group mb-3">
+        <input type="text" className={`form-control py-2 ${styles.blueInput} rounded-pill`} placeholder='Your Name ' id='name'name='name' value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
         <label htmlFor="name" className='fw-semibold'>Your name</label>
-       
         </div>
         {formik.errors.name && formik.touched.name?<div className='alert alert-danger '>{formik.errors.name}</div>:"" }
 

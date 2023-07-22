@@ -21,13 +21,13 @@ export default function Cart() {
       if(response?.data?.status === 'success'){
         setCartDetails(response.data.data);
         setCounter(response.data.data.products.length)
-        console.log(response.data.data.products);
+        // console.log(response.data.data.products);
       }
     }
   
     async function deletItem(productId){
       let response = await removeItem(productId);
-      console.log(response);
+      // console.log(response);
       decrement();
       setCartDetails(response.data.data);
       toast.success("Product Successfuly removed",{
@@ -41,7 +41,7 @@ export default function Cart() {
 
     async function updateProductQty(productId, count){
       let response = await updateProductCount(productId,count);
-      console.log(response);
+      // console.log(response);
       setCartDetails(response.data.data);
       toast.success("Product count updated Successfuly ",{
         duration:3000,
@@ -66,7 +66,7 @@ export default function Cart() {
     {cartDetails !== null?     <div className="container  p-4 ">
       <h3>Cart </h3>
       
-    {cartDetails.products.map((product)=> <> <div className='row  align-items-center border-bottom py-2'>
+    {cartDetails.products.map((product,index)=>  <div key={index} className='row  align-items-center border-bottom py-2'>
     
       <div className="col-2">
       <Link key={product.product._id} to={`/product-details/${product.product._id}`}>
@@ -101,15 +101,15 @@ export default function Cart() {
       </div>
       
       </div>
-      </> )}
+       )}
     
       <div className="row w-100 d-flex justify-content-between align-items-center py-2">
         <div className="col-md-8 ">
         <h6 className='h3 ps-3 py-3 fw-bold'>Subtotal: {cartDetails.totalCartPrice.toLocaleString()} EGP</h6> 
 
         </div>
-        <div className="col-md-3 ">
-       <Link to={'/checkout'} ><button className=' bg-prim rounded-pill ms-5 '>Proceed to Checkout</button></Link> 
+        <div className="col-md-3 d-flex justify-content-center">
+       <Link to={'/checkout'} className=''><button className=' bg-prim rounded-pill  p-2 w-auto'>Proceed to Checkout</button></Link> 
 
         </div>
      

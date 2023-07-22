@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { cartContext } from '../../../Context/CartContext';
 import axios from 'axios';
 import styles from './MyAddressBook.module.css'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
 import {Helmet} from "react-helmet";
 
@@ -188,7 +188,7 @@ let formik = useFormik({
                 <label htmlFor="phone" className='fw-semibold rounded '>Phone</label>
             </div>
             <div className="d-flex justify-content-center">
-            <button className='rounded-pill bg-prim   w-auto' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Add address"}</button>
+            <button className='rounded-pill bg-prim p-2  w-auto' type='submit'>{loading?<i className='fa fa-spinner fa-spin'></i>:"Add address"}</button>
 
             </div>
             </div>

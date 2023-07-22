@@ -6,8 +6,6 @@ import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
 import { cartContext } from '../../../Context/CartContext';
 import { toast  } from 'react-hot-toast';
-import { Alert } from '../../Helpers/Alert/Alert';
-// import { alertService } from '../../Helpers/AlertService/AlertService';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "slick-carousel/slick/slick.css";
@@ -25,15 +23,10 @@ import {Helmet} from "react-helmet";
 export default function ProductDetails() {
   let {id} =useParams();
   const [productDetails,setProductDetails]=useState();
-  const {addToCart,removeItem,getLoggedUserCart,increment,decrement,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist} =useContext(cartContext);
-  // const [autoClose]=useState(true);
-  // const [backgroundColor , setBackgroundColor]=useState("bg-success");
-  // const [buttonText,setButtonText]=useState("+ Add to Cart");
-  const [cartDetails,setCartDetails] =useState(null);
+  const {addToCart,removeItem,userCart,userWishlist,baseUrl,handleBaseUrl,addToWishlist,removeFromWishlist} =useContext(cartContext);
   const isMobile = useMediaQuery({ query: `(max-width: 992px)` });
   const [showBtnText,setShowBtnText]=useState('Show More');
-  // const [heartIcon,setHeartIcon]=useState('fa-regular')
-  const [wishlist,setWishlist] =useState(null);
+
 
   const iOSBoxShadow =
   '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
@@ -48,12 +41,7 @@ export default function ProductDetails() {
     },
   ];
 
-  async function getCart(){
-    let response = await getLoggedUserCart();
-    if(response?.data?.status === 'success'){
-      setCartDetails(response.data.data.products);
-    }
-  }
+
 
   async function getProductDetails(){
     let {data} = await axios.get(`${baseUrl}/api/v1/products/${id}`).catch((err) => {
@@ -62,44 +50,23 @@ export default function ProductDetails() {
         handleBaseUrl();
       }
     } );
-   
-    //   cartDetails?.products.map((product)=>{
-    //   if(product.product.id === productDetails._id)
-    //   {setBackgroundColor("bg-danger"); 
-    //   setButtonText("Remove from Cart");
-    //   // getProductDetails();
-    //   console.log("found");
-    //   return  product.product._id;
-    // }
-    //   else {
-    //     setBackgroundColor("bg-main"); 
-    //     setButtonText("Add to Cart");
-        
-    //     return console.log("Not Found");}
-    // })
-    // console.log(data.data._id);
-    // const newArr =cartDetails?.products?.find(checkProductInCart);
-    // console.log(newArr?.product?._id);
     setProductDetails(data.data);
-    // console.log(data.data);
-    getCart();
+
     }
 
-    function checkProductInCart(product){
-      
-      cartDetails?.find((item)=> item._id === id)
-      let status = cartDetails?.filter((item)=> item.product.id === id);
+    function checkProductInCart(id){
+      let status = userCart?.filter((item)=> item === id);
        if (status?.length>0){
         return true
        }else{
         return false
        }
     }
-
+  
+  
     async function addProduct(productId){
       let response = await addToCart(productId);
       if(response?.data.status === 'success'){
-        increment();
         toast.success(response.data.message,{
           duration:3000,
           position:'top-right',
@@ -110,12 +77,12 @@ export default function ProductDetails() {
       }else{
         toast.error('Error',{duration:3000} )
       }
-      
     }
+  
     async function RemoveProduct(productId){
       let response = await removeItem(productId);
           if(response?.data.status === 'success'){
-            decrement();
+            // decrement();
             toast.success('Product removed from cart',{
               duration:3000,
               position:'top-right',
@@ -130,6 +97,9 @@ export default function ProductDetails() {
 
   function magnifyImages(props){
     // console.log(props);
+    const rimProps={'isHintEnabled': true,
+      'shouldHideHintAfterFirstActivation': false,
+      'enlargedImagePosition': 'over'}
     return <ReactImageMagnify
     {...{
       smallImage: {
@@ -138,11 +108,13 @@ export default function ProductDetails() {
       },
       largeImage: {
         src: props.original,
-        width: 640,
-        height: 480
+        width: 1426,
+        height: 2000
       },
-      enlargedImagePortalId: "myPortal"
+
+      lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
     }}
+    {...rimProps}
   />
   }
 
@@ -233,19 +205,11 @@ export default function ProductDetails() {
     }
   }
   
-  async function getWishlist(){
-    let response = await getLoggedUserWishlist();
-    // console.log(response);
-    if(response?.data?.status === 'success'){
-      setWishlist(response.data.data);
-    }
-  }
-
   function checkProductInWishlist(id){
     // console.log('wishlist',wishlist);
-      // console.log(wishlist?.filter((item)=> item.id === id));
+    //   console.log(wishlist?.filter((item)=> item.id === id));
     // wishlist?.find((item)=> item._id === id)
-    let status = wishlist?.filter((item)=> item.id === id);
+    let status = userWishlist?.filter((item)=> item === id);
      if (status?.length>0){
       return true
      }else{
@@ -255,11 +219,9 @@ export default function ProductDetails() {
 
   async function addProductToWishlist(productId){
     let response = await addToWishlist(productId);
-    // console.log("Hello from add to wishlist");
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-      // console.log("Hello from add to wishlist success");
-
+      // getFeaturedProducts();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -277,8 +239,8 @@ export default function ProductDetails() {
     let response = await removeFromWishlist(productId);
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-      // console.log('removeProductFromWishlist',response.data.message);
-      toast.success('Product removed from wishlist',{
+      // getFeaturedProducts();
+      toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
         style:
@@ -302,23 +264,11 @@ export default function ProductDetails() {
   })
 
   useEffect(() =>{
-    // console.log("isMobile",isMobile);
     getProductDetails();
-    getCart();
-    getWishlist();
-  })
+  },[])
 
 
  
-  // var settings = {
-  //   dots: true,
-  //   infinite: false,
-  //   speed: 500,
-  //   slidesToShow: 2,
-  //   slidesToScroll: 1,
-  //   autoplay: false,
-  //   autoplaySpeed: 3000,
-  // };
 
 
   return (
@@ -332,16 +282,16 @@ export default function ProductDetails() {
       <div className="row  flex-column flex-lg-row mb-5">
         <div className="col-lg-7 position-relative">
         {/* <ImageGallery items={images} renderItem={(e)=> magnifyImages(e)} thumbnailPosition={"left"} showPlayButton={false} showBullets={false} showNav={false} autoPlay={true} showFullscreenButton={false} slideOnThumbnailOver={true} /> */}
-       {isMobile? <ImageGallery items={images} renderItem={(e)=> magnifyImages(e)} thumbnailPosition={"left"} showPlayButton={false} showBullets={false} showNav={false} autoPlay={true} showFullscreenButton={false} slideOnThumbnailOver={true} />: <div className="row">
+       {isMobile || productDetails.images.length>5 ? <ImageGallery items={images} renderItem={(e)=> magnifyImages(e)} thumbnailPosition={"left"} showPlayButton={true} showBullets={false} showNav={false} autoPlay={false} showFullscreenButton={false} slideOnThumbnailOver={true} />: <div className="row">
           {productDetails?.images?.map((img , index)=> <div key={index} className="col-md-6 py-0 mb-4">
             
-            <img className='w-100 py-0' src={img} alt=""/>
+            <img   className='w-100 py-0' src={img} alt=""/>
             
             </div>)}
 
           </div> }
         
-        <div id="myPortal" className=' bg-white w-100 d-flex justify-content-end '/>
+        {/* <div id="myPortal" className=' bg-white w-100 d-flex justify-content-end '/> */}
 
           {/* <Slider {...settings}>
           {productDetails?.images?.map((img)=> <div key={productDetails.id}><img className='w-100' src={img} alt=""/></div>)}
@@ -447,7 +397,7 @@ export default function ProductDetails() {
             Product Added Successfuly...
           </div> */}
           {}
-          <Alert id="suc"></Alert>
+          {/* <Alert id="suc"></Alert> */}
         </div>
       </div>
 
@@ -494,7 +444,7 @@ export default function ProductDetails() {
                 <p><i className="fa-regular fa-thumbs-up me-2 fa-xl"></i> I recommend this product </p>
               </div>
               <div className="col-lg-9 ps-3">
-              <div className='mb-3 mt-1 pt-0 d-flex '> <DynamicStar fullStarColor={'black'}  outlined={true} width={'20'} height={'20'} rating={5} /> <span className='ms-auto text-muted'> 3 months ago</span> </div>
+              <div className='mb-3 mt-1 pt-0 d-flex '> <DynamicStar fullStarColor={'black'}  outlined={true} width={'20'} height={'20'} rating={4.5} /> <span className='ms-auto text-muted'> 3 months ago</span> </div>
               <h5>Comfy Yet Sturdy</h5>
               <p className='mb-5'>These shoes are my go-to for comfort and durability as a busy teacher and devoted mom of two young children. I wear them to work nearly every day and they still hold up incredibly well, earning a glowing 5-star review despite a stubborn coffee stain.</p>
               <p className='text-muted mb-0 pt-3'>  was this helpful? <i className="fa-solid fa-thumbs-up me-1"></i>3 <i className="fa-regular fa-thumbs-down fa-flip-horizontal me-1"></i>2</p>
@@ -509,7 +459,7 @@ export default function ProductDetails() {
                 <p><i className="fa-regular fa-thumbs-up me-2 fa-xl"></i> I recommend this product </p>
               </div>
               <div className="col-lg-9 ps-3">
-              <div className='mb-3 mt-1 pt-0 d-flex '> <DynamicStar fullStarColor={'black'}  outlined={true} width={'20'} height={'20'} rating={5} /> <span className='ms-auto text-muted'> 4 months ago</span> </div>
+              <div className='mb-3 mt-1 pt-0 d-flex '> <DynamicStar fullStarColor={'black'}  outlined={true} width={'20'} height={'20'} rating={4} /> <span className='ms-auto text-muted'> 4 months ago</span> </div>
               <h5>Love From India</h5>
               <p className='mb-5'>I opted for the Gray color and I am absolutely in love with it! This amazing brand and its supportive community have exceeded my expectations. It is no surprise that this review has been helpful to 3 people who voted 'yes' - I highly recommend giving this product a try!</p>
               <p className='text-muted mb-0 pt-3'>  was this helpful? <i className="fa-solid fa-thumbs-up me-1"></i>10 <i className="fa-regular fa-thumbs-down fa-flip-horizontal me-1"></i>2</p>
@@ -568,8 +518,8 @@ export default function ProductDetails() {
                 </div>
 
                 <h2 className="accordion-header">
-                  <button id='showMoreBtn' className="accordion-button w-auto  rounded-pill mx-auto bg-prim collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMore" aria-expanded="false" aria-controls="collapseMore" onClick={() =>{toggleShowBtn()}}>
-                  {showBtnText}
+                  <button id='showMoreBtn' className="accordion-button w-auto rounded-pill mx-auto bg-prim collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMore" aria-expanded="false" aria-controls="collapseMore" onClick={() =>{toggleShowBtn()}}>
+                <span className=' me-2'>{showBtnText} </span>  
                   </button>
                 </h2>
               </div></div>

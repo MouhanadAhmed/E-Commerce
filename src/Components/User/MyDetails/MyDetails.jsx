@@ -16,7 +16,7 @@ export default function MyDetails() {
         let {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/users?email=${mail}`).catch((err)=>{
             console.log("err",err);
         });
-        // console.log("User",data.users[0]);
+
         setUserDetails(data.users[0]);
         localStorage.setItem('userId',data.users[0]._id)
     }
@@ -28,7 +28,7 @@ export default function MyDetails() {
 
   return (
     <>
-                                          <Helmet>
+            <Helmet>
                 <meta charSet="utf-8" />
                 <title>User details</title>
             </Helmet>
@@ -39,12 +39,12 @@ export default function MyDetails() {
             <hr className='mb-5'/>
 
             <div className="form-group col-md-6">
-                <input type="text" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} disabled placeholder='name' id='MyDetailsName'name='name' value={userDetails?.name} />
+                <input type="text" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} disabled  id='MyDetailsName'name='name' value={userDetails?.name} />
                 <label htmlFor="name" className='fw-semibold rounded'>Name</label>
             </div>
 
             <div className="form-group  col-md-6">
-                <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} disabled placeholder='Email Address' id='MyDetailsEmail'name='email' value={userDetails?.email} />
+                <input type="email" className={`form-control mb-3 py-2 ${styles.blueInput} rounded-pill`} disabled  id='MyDetailsEmail'name='email' value={userDetails?.email} />
                 <label htmlFor="email" className='fw-semibold rounded'>Email</label>
             </div>
         </div>

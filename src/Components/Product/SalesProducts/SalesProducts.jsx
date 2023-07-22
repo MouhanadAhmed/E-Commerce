@@ -7,15 +7,16 @@ import { toast } from 'react-hot-toast';
 import Loading from '../../Helpers/Loading/Loading';
 import { DynamicStar } from 'react-dynamic-star';
 import ProductGridLoading from '../../Helpers/ProductGridLoading/ProductGridLoading';
-import ContentLoading from '../../Helpers/ContentLoading/ContentLoading';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function SalesProducts(args) {
 
-  let {addToCart,increment,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist,getLoggedUserCart,removeItem,decrement} =useContext(cartContext);
+  let {addToCart,baseUrl,handleBaseUrl,userWishlist,addToWishlist,removeFromWishlist,userCart,removeItem,getLoggedUserCart,getLoggedUserWishlist} =useContext(cartContext);
 
   const [allProducts,setAllProducts]=useState([]);
-  const [cartDetails,setCartDetails] =useState(null);
-  const [wishlist,setWishlist] =useState(null);
+  // const [cartDetails,setCartDetails] =useState(null);
+  // const [wishlist,setWishlist] =useState(null);
   const [fetchingData,setFetchingData]=useState(true);
 
 
@@ -23,15 +24,12 @@ export default function SalesProducts(args) {
   async function getCart(){
     let response = await getLoggedUserCart();
     if(response?.data?.status === 'success'){
-      setCartDetails(response.data.data.products);
+
     }
   }
 
   function checkProductInCart(id){
-    // console.log('cartDetails',cartDetails);
-      // console.log(cartDetails?.filter((item)=> item.product.id === id));
-    cartDetails?.find((item)=> item._id === id)
-    let status = cartDetails?.filter((item)=> item.product.id === id);
+    let status = userCart?.filter((item)=> item === id);
      if (status?.length>0){
       return true
      }else{
@@ -43,7 +41,6 @@ export default function SalesProducts(args) {
   async function addProduct(productId){
     let response = await addToCart(productId);
     if(response?.data.status === 'success'){
-      increment();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -54,13 +51,12 @@ export default function SalesProducts(args) {
     }else{
       toast.error('Error',{duration:3000} )
     }
-    // console.log(response);
   }
 
   async function RemoveProduct(productId){
     let response = await removeItem(productId);
         if(response?.data.status === 'success'){
-          decrement();
+          // decrement();
           toast.success('Product removed from cart',{
             duration:3000,
             position:'top-right',
@@ -84,12 +80,13 @@ export default function SalesProducts(args) {
   );
   // console.log(data.data,"All products");
   setAllProducts(data.data);
-  // setFetchingData(false);
+  setFetchingData(false);
   // getSalesProducts();
   const newArr = data.data?.filter((product)=>{
     return product.priceAfterDiscount && product.priceAfterDiscount !== product.price
 })
 // console.log(newArr,"Sales Products");
+// console.log(newArr,"newArrnewArrnewArr`");
 setAllProducts(newArr);
 
 // console.log(args,"args");
@@ -105,17 +102,13 @@ setAllProducts(newArr2);
 
   async function getWishlist(){
     let response = await getLoggedUserWishlist();
-    // console.log(response);
-    if(response?.data?.status === 'success'){
-      setWishlist(response.data.data);
-    }
   }
 
   function checkProductInWishlist(id){
     // console.log('wishlist',wishlist);
     //   console.log(wishlist?.filter((item)=> item.id === id));
     // wishlist?.find((item)=> item._id === id)
-    let status = wishlist?.filter((item)=> item.id === id);
+    let status = userWishlist?.filter((item)=> item === id);
      if (status?.length>0){
       return true
      }else{
@@ -127,7 +120,7 @@ setAllProducts(newArr2);
     let response = await addToWishlist(productId);
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-
+      getFeaturedProducts();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -145,7 +138,7 @@ setAllProducts(newArr2);
     let response = await removeFromWishlist(productId);
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-
+      // getFeaturedProducts();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -163,7 +156,11 @@ useEffect(() =>{
   getFeaturedProducts();
   getCart();
   getWishlist();
-},[])
+},[]);
+// useEffect(() =>{
+//   getFeaturedProducts();
+//   // getWishlist();
+// },[removeProductFromWishlist,addProductToWishlist])
   return (
     <> 
     {allProducts?    <div className="container py-4">
@@ -189,7 +186,10 @@ useEffect(() =>{
                   <div className="product px-2 py-3 rounded ">
                     <Link to={'/product-details/'+ product.id}>
                       <figure className='position-relative rounded'>
-                      <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />
+                      <LazyLoadImage src={product.imageCover}   className='w-100  rounded ' alt={product.category.name} effect='blur'>
+                        
+                      </LazyLoadImage>
+                      {/* <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} /> */}
                       {product.priceAfterDiscount && product.priceAfterDiscount !== product.price? <span className="sale badge text-bg-danger position-absolute top-0 end-0 rounded">Sale</span>:""}
                       </figure>
                     

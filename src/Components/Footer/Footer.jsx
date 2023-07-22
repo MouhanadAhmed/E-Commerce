@@ -6,20 +6,20 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className=' bg-prim bottom p-5 text-white text-start '>
+    <footer className=' bg-prim bottom text-white text-start pt-3'>
 
-      <div className="container-fluid pb-5 ps-5 mb-2 ">
+      <div className="container-fluid  ">
         <div className="row  pb-5">
           <div className="col-md-4">
           <img src={logo} alt="logo" className='mb-5 mt-4' />
           <p className='mb-4 h6'>Stay informed about Sopa with our latest<br/> 
             releases and founder news.</p>
-          <button id='mailBtn' className='btn text-white border rounded-pill '>Enter email here for updates</button>
+          <button id='mailBtn' className='bg-prim text-white btn border border-1 border-white rounded-pill '>Enter email here for updates</button>
           </div>
           <div className="col-md-8 pt-3">
             <div className="row ">
               <div className="col-md-3 mb-3">
-                <h3 className='fw-semi-bold mb-4'>Products</h3>
+                <h4 className='fw-semi-bold mb-4'>Products</h4>
                <h6 className=' mb-3'>
                <Link className='text-white' href='#' to={'/categoryproducts/6439d5b90049ad0b52b90048'}>Men's Fashion</Link>
                 </h6> 
@@ -44,7 +44,7 @@ export default function Footer() {
 
               </div>
               <div className="col-md-3 mb-3">
-              <h3 className='fw-semi-bold mb-4'>Support</h3>
+              <h4 className='fw-semi-bold mb-4'>Support</h4>
               <h6 className=' mb-3'>
                <Link className='text-white' href='#' to={'/'}>Help Center</Link>
                 </h6> 
@@ -67,7 +67,7 @@ export default function Footer() {
               </div>
 
               <div className="col-md-3 mb-3">
-              <h3 className='fw-semi-bold mb-4'>Everything Else</h3>
+              <h4 className='fw-semi-bold mb-4'>Everything Else</h4>
               <h6 className=' mb-3'>
                <Link className='text-white' href='#' to={'/'}>Community</Link>
                 </h6> 

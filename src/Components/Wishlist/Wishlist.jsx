@@ -11,63 +11,51 @@ import {Helmet} from "react-helmet";
 export default function Wishlist() {
 
     const [allProducts,setAllProducts]=useState();
-    const [cartDetails,setCartDetails] =useState(null);
-    const [wishlist,setWishlist] =useState(null);
+
     
-    let {headers,addToCart,increment,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist,getLoggedUserCart,removeItem,decrement} =useContext(cartContext);
+    let {headers,addToCart,userCart,baseUrl,handleBaseUrl,addToWishlist,removeFromWishlist,removeItem} =useContext(cartContext);
   
-    async function getCart(){
-      let response = await getLoggedUserCart();
-      if(response?.data?.status === 'success'){
-        setCartDetails(response.data.data.products);
-      }
-    }
-  
+ 
     function checkProductInCart(id){
-      // console.log('cartDetails',cartDetails);
-        // console.log(cartDetails?.filter((item)=> item.product.id === id));
-      cartDetails?.find((item)=> item._id === id)
-      let status = cartDetails?.filter((item)=> item.product.id === id);
+      let status = userCart?.filter((item)=> item === id);
        if (status?.length>0){
         return true
        }else{
         return false
        }
     }
-
-
+  
+  
     async function addProduct(productId){
-        let response = await addToCart(productId);
-        if(response?.data.status === 'success'){
-          increment();
-          toast.success(response.data.message,{
-            duration:3000,
-            position:'top-right',
-            style:
-            {background:'black',
-            color:'white'}
-          });
-        }else{
-          toast.error('Error',{duration:3000} )
-        }
-        // console.log(response);
+      let response = await addToCart(productId);
+      if(response?.data.status === 'success'){
+        toast.success(response.data.message,{
+          duration:3000,
+          position:'top-right',
+          style:
+          {background:'black',
+          color:'white'}
+        });
+      }else{
+        toast.error('Error',{duration:3000} )
       }
-    
-      async function RemoveProduct(productId){
-        let response = await removeItem(productId);
-            if(response?.data.status === 'success'){
-              decrement();
-              toast.success('Product removed from cart',{
-                duration:3000,
-                position:'top-right',
-                style:
-                {background:'black',
-                color:'white'}
-              });
-            }else{
-              toast.error('Error',{duration:3000} )
-            }
-      }
+    }
+  
+    async function RemoveProduct(productId){
+      let response = await removeItem(productId);
+          if(response?.data.status === 'success'){
+            // decrement();
+            toast.success('Product removed from cart',{
+              duration:3000,
+              position:'top-right',
+              style:
+              {background:'black',
+              color:'white'}
+            });
+          }else{
+            toast.error('Error',{duration:3000} )
+          }
+    }
 
       async function getWishlistProducts(){
         let {data} = await axios.get(`${baseUrl}/api/v1/wishlist`,{
@@ -133,7 +121,7 @@ export default function Wishlist() {
       }
       // console.log(response);
     }
-    getCart();
+    // getCart();
     useEffect(()=>{
         getWishlistProducts()
     })

@@ -10,33 +10,75 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ImageLoader from '../../Helpers/ImageLoader/ImageLoader';
 import {Helmet} from "react-helmet";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Products() {
   let {id} =useParams();
   
-  // console.log("id",id);
   const [allProducts,setAllProducts]=useState();
   // const [subProducts,setSubProducts]=useState();
   const [numberOfPages,setNumberOfPages]=useState(1);
   const [page, setPage] = useState();
-  const [cartDetails,setCartDetails] =useState(null);
-  const [wishlist,setWishlist] =useState(null);
+  // const [cartDetails,setCartDetails] =useState(null);
+  // const [wishlist,setWishlist] =useState(null);
 
   let productsArray=[];
-  let {addToCart,increment,baseUrl,handleBaseUrl,getLoggedUserWishlist,addToWishlist,removeFromWishlist,getLoggedUserCart,removeItem,decrement} =useContext(cartContext);
+  let {addToCart,userCart,baseUrl,handleBaseUrl,userWishlist,addToWishlist,removeFromWishlist,removeItem} =useContext(cartContext);
 
-  async function getCart(){
-    let response = await getLoggedUserCart();
-    if(response?.data?.status === 'success'){
-      setCartDetails(response.data.data.products);
+
+
+
+
+
+  async function getProducts(page){
+    // setPage(page);
+  let {data} = await axios.get(`${baseUrl}/api/v1/products?page=${page?page:1}`).catch((err)=> 
+  {
+    console.log('getProducts error',err.message);
+    if (err.code === "ERR_NETWORK") {
+      handleBaseUrl();
     }
+}
+  );
+  // console.log('numberOfPages',data);
+  setNumberOfPages(data.metadata.numberOfPages);
+  // console.log(data.data);
+  setAllProducts(data.data);
+  let dat = await axios.get(`${baseUrl}/api/v1/products?page=2`).catch((err)=> 
+  {
+    console.log('getProducts error',err.message);
+    if (err.code === "ERR_NETWORK") {
+      handleBaseUrl();
+    }
+}
+  );;
+  // console.log('data2',dat);
+  productsArray=[...data?.data,...dat?.data.data];
+    // console.log('productsArray',productsArray);
+  // if (id !== "all") {
+   let temp = productsArray.filter((product)=>{
+      return product?.subcategory[0]?._id === id;
+    
+   });
+      // console.log("temp",temp);
+      setAllProducts(temp);
+   Array.from(temp).length !==0 ? setAllProducts(temp):setAllProducts(data.data);
+   if(Array.from(temp).length !==0){
+    setAllProducts(temp);
+    // eslint-disable-next-line no-lone-blocks
+    {Array.from(temp).length < 40? setNumberOfPages(1):setNumberOfPages(2) }
+   }
   }
-
+  function handleChange(event, value){
+    console.log('event',event);
+    console.log('value',value);
+    // setPage(value);
+    getProducts(value);
+    window.scrollTo(0,0);
+  }
   function checkProductInCart(id){
-    // console.log('cartDetails',cartDetails);
-      // console.log(cartDetails?.filter((item)=> item.product.id === id));
-    cartDetails?.find((item)=> item._id === id)
-    let status = cartDetails?.filter((item)=> item.product.id === id);
+    let status = userCart?.filter((item)=> item === id);
      if (status?.length>0){
       return true
      }else{
@@ -48,7 +90,6 @@ export default function Products() {
   async function addProduct(productId){
     let response = await addToCart(productId);
     if(response?.data.status === 'success'){
-      increment();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -59,12 +100,12 @@ export default function Products() {
     }else{
       toast.error('Error',{duration:3000} )
     }
-    console.log(response);
   }
+
   async function RemoveProduct(productId){
     let response = await removeItem(productId);
         if(response?.data.status === 'success'){
-          decrement();
+          // decrement();
           toast.success('Product removed from cart',{
             duration:3000,
             position:'top-right',
@@ -76,76 +117,11 @@ export default function Products() {
           toast.error('Error',{duration:3000} )
         }
   }
-  async function getProducts(page){
-    // setPage(page);
-  let {data} = await axios.get(`${baseUrl}/api/v1/products?page=${page?page:1}`).catch((err)=> 
-  {
-    console.log('getProducts error',err.message);
-    if (err.code === "ERR_NETWORK") {
-      handleBaseUrl();
-    }
-}
-  );
-  console.log('numberOfPages',data);
-  setNumberOfPages(data.metadata.numberOfPages);
-  console.log(data.data);
-  setAllProducts(data.data);
-  let dat = await axios.get(`${baseUrl}/api/v1/products?page=2`).catch((err)=> 
-  {
-    console.log('getProducts error',err.message);
-    if (err.code === "ERR_NETWORK") {
-      handleBaseUrl();
-    }
-}
-  );;
-  console.log('data2',dat);
-  productsArray=[...data?.data,...dat?.data.data];
-    console.log('productsArray',productsArray);
-  // if (id !== "all") {
-   let temp = productsArray.filter((product)=>{
-      return product?.subcategory[0]?._id === id;
-    
-   });
-      console.log("temp",temp);
-      setAllProducts(temp);
-   Array.from(temp).length !==0 ? setAllProducts(temp):setAllProducts(data.data);
-   if(Array.from(temp).length !==0){
-    setAllProducts(temp);
-    // eslint-disable-next-line no-lone-blocks
-    {Array.from(temp).length < 40? setNumberOfPages(1):setNumberOfPages(2) }
-   }
-  //  temp=[];
-  //  setSubProducts(temp);
-  //  console.log("subProducts",subProducts);
-  //  subProducts !== undefined ? setAllProducts(temp):setAllProducts(data.data);
-  //  setSubProducts(undefined);
-   //  temp=[];
-  // }
-
-  
-  // temp.length >0 ?setAllProducts(temp):setAllProducts(data.data);
-  // temp=[];
-  }
-  function handleChange(event, value){
-    console.log('event',event);
-    console.log('value',value);
-    // setPage(value);
-    getProducts(value);
-    window.scrollTo(0,0);
-  }
-  async function getWishlist(){
-    let response = await getLoggedUserWishlist();
-    // console.log(response);
-    if(response?.data?.status === 'success'){
-      setWishlist(response.data.data);
-    }
-  }
-
   function checkProductInWishlist(id){
     // console.log('wishlist',wishlist);
-      // console.log(wishlist?.filter((item)=> item.id === id));
+    //   console.log(wishlist?.filter((item)=> item.id === id));
     // wishlist?.find((item)=> item._id === id)
-    let status = wishlist?.filter((item)=> item.id === id);
+    let status = userWishlist?.filter((item)=> item === id);
      if (status?.length>0){
       return true
      }else{
@@ -157,7 +133,7 @@ export default function Products() {
     let response = await addToWishlist(productId);
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-
+      // getFeaturedProducts();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -175,7 +151,7 @@ export default function Products() {
     let response = await removeFromWishlist(productId);
     if(response?.data.status === 'success'){
       // setHeartIcon('fa-solid text-danger')
-
+      // getFeaturedProducts();
       toast.success(response.data.message,{
         duration:3000,
         position:'top-right',
@@ -189,12 +165,11 @@ export default function Products() {
     // console.log(response);
   }
 
-useEffect(() =>{
-  getProducts();
-  getCart();
-  getWishlist();
 
-},[])
+// useEffect(() =>{
+//   getProducts();
+
+// },[])
 useEffect(() =>{
   getProducts();
 },[id])
@@ -212,7 +187,8 @@ useEffect(() =>{
                   <div className="product px-2 py-3 rounded">
                     <Link to={'/product-details/'+ product.id}>
                       <figure className='position-relative rounded'>
-                      {product.imageCover?<img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />: <ImageLoader></ImageLoader>}
+                        <LazyLoadImage effect='blur' src={product.imageCover} className='w-100  rounded ' alt={product.category.name}></LazyLoadImage>
+                      {/* {product.imageCover?<img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} />: <ImageLoader></ImageLoader>} */}
                       {/* <img src={product.imageCover} className='w-100  rounded ' alt={product.category.name} /> */}
                       {product.priceAfterDiscount && product.priceAfterDiscount !== product.price? <span className="sale badge text-bg-danger position-absolute top-0 end-0 rounded">Sale</span>:""}
                       </figure>

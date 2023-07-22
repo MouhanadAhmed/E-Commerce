@@ -32,7 +32,7 @@ export default function Payment() {
         },{
           headers
         }).catch((err)=> console.log('Cash order err',err));
-        console.log(response);
+        // console.log(response);
         navigate('/userProfile');
         setLoading(false);
     }
@@ -49,7 +49,7 @@ export default function Payment() {
       },{
         headers
       }).catch((err)=> console.log('Cash order err',err));
-      console.log(typeof  response.data.session.url,response.data.session.url);
+      // console.log(typeof  response.data.session.url,response.data.session.url);
       setIsLoading(false);
       navigate('/userProfile')
       window.open(response.data.session.url);
@@ -69,7 +69,7 @@ export default function Payment() {
                   handleBaseUrl(baseUrl);
               }
           });
-          console.log("data",data);
+          // console.log("data",data);
           // console.log("data length",data.data.length  );
       
           setUserAddress(data.data);
@@ -83,7 +83,7 @@ export default function Payment() {
 
        function getShippingAddress(){
         let address =userAddress?.find((item)=> item._id === localStorage.getItem('addressId'));
-        console.log("address",address?.details);
+        // console.log("address",address?.details);
         return address?.details
        }
 
