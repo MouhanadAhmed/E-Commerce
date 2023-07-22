@@ -78,7 +78,7 @@ function App() {
 
 
 
-  const routes= createBrowserRouter([
+  const routes= createHashRouter([
     { path:"",
     element: <Layout setUserData={setUserData} userData={userData}/> ,
     children:[
