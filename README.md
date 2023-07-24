@@ -80,8 +80,9 @@
 
 
 
-A quiz app is a JavaScript website, asking the user for quiz category, difficulty and number of questions, fetching
-questions from API, validating the user choices and calculating score.
+Sopa is an e-commerce website using React.js, filtering sales products, products by category/subcategory/brand,
+product details, cart, payment, user profile, address book, authentication & validation. Lazy loading for the components
+and images and skeleton. Used Figma design
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
