@@ -82,7 +82,7 @@ function App() {
     { path:"",
     element: <Layout setUserData={setUserData} userData={userData}/> ,
     children:[
-      {index:true, element:<ProtectedRoute> <Home/></ProtectedRoute> },
+      {index:true, element: <Home/> },
       {path:"login", element:<Login saveUserData={saveUserData}/>},
       {path :"register", element:<Register/>, children:[
         {index:true, element:<Register/>},
@@ -107,15 +107,15 @@ function App() {
       {path:"checkout", element:<ProtectedRoute><Checkout/></ProtectedRoute>}, 
       {path:"wishlist", element:<ProtectedRoute><Wishlist/></ProtectedRoute>}, 
       {path:"cart", element:<ProtectedRoute><Cart/></ProtectedRoute>}, 
-      {path:"brands", element:<ProtectedRoute><Brands/></ProtectedRoute>}, 
-      {path:"brandproducts/:id", element:<ProtectedRoute><BrandProducts/></ProtectedRoute>}, 
-      {path:"categoryproducts/:id", element:<ProtectedRoute><CategoryProducts/></ProtectedRoute>}, 
-      {path:"featuredProducts", element:<ProtectedRoute> <FeaturedProducts/></ProtectedRoute> },
+      {path:"brands", element:<Brands/>}, 
+      {path:"brandproducts/:id", element:<BrandProducts/>}, 
+      {path:"categoryproducts/:id", element:<CategoryProducts/>}, 
+      {path:"featuredProducts", element:<FeaturedProducts/> },
 
-      {path:"products/:id", element:<ProtectedRoute> <Products/></ProtectedRoute> },
-      {path:"product-details/:id", element:<ProtectedRoute> <ProductDetails/></ProtectedRoute> },
-      {path:"E-Commerce" , element:<ProtectedRoute> <Home/></ProtectedRoute> },
-      {path:"*", element:<ProtectedRoute><NotFound/></ProtectedRoute>},
+      {path:"products/:id", element: <Products/> },
+      {path:"product-details/:id", element: <ProductDetails/> },
+      {path:"E-Commerce" , element:<Home/> },
+      {path:"*", element:<NotFound/>},
     ]}
   ])
 

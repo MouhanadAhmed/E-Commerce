@@ -76,7 +76,8 @@ export default function Cart() {
         <div className='col-10  pt-2'>
         <Link key={product.product._id} to={`/product-details/${product.product._id}`}>
         <h6 className='h6  fw-bold'>{product.product.title}</h6>
-        <h6 className='mb-3  text-muted'>{product.product.brand.name}</h6> </Link>
+        {product.product.brand != null?<h6 className='mb-3  text-muted'>{product.product.brand.name}</h6>:<h6 className='mb-3  text-muted'></h6>}
+         </Link>
         <div className="d-flex justify-content-start align-items-center mb-3">
         <div className={`${styles.counter} rounded-pill py-0 border me-3`}>
         <button onClick={()=>updateProductQty(product.product._id,product.count-1)} className='btn rounded-0 fw-bold border-0 btn-sm'><i className="fa-solid fa-minus"></i></button>

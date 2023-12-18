@@ -1,11 +1,14 @@
 import axios from "axios";
 import { createContext ,useState} from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export let cartContext = createContext();
 
 
 export function CartContextProvider(props){
     const baseUrls =['https://ecommerce.routemisr.com','https://route-ecommerce.onrender.com','https://route-ecommerce-app.vercel.app'];
+    // const navigate = useNavigate()
 
     const [counter,setCounter]=useState(0);
     const [baseUrl,setBaseUrl]=useState(baseUrls[0]);
@@ -17,6 +20,7 @@ export function CartContextProvider(props){
     }
 
     async function addToCart(productId){
+        if (localStorage.getItem('userToken')){
        try {
             const response = await axios.post(`${baseUrl}/api/v1/cart`, {
                 productId
@@ -38,7 +42,9 @@ export function CartContextProvider(props){
             }
         }
     }
+    }
     async function getLoggedUserCart(){
+       if (localStorage.getItem('userToken')) {
         try {
             const response = await axios.get(`${baseUrl}/api/v1/cart`,
                 {
@@ -61,6 +67,7 @@ export function CartContextProvider(props){
                 handleBaseUrl(baseUrl);
             }
         }
+    }
         
      }
      async function removeItem(productId){
@@ -137,6 +144,7 @@ export function CartContextProvider(props){
          }
      }
      async function getLoggedUserWishlist(productId){
+        if (localStorage.getItem('userToken')){
         try {
              const response = await axios.get(`${baseUrl}/api/v1/wishlist`,
                  {
@@ -153,6 +161,7 @@ export function CartContextProvider(props){
                  handleBaseUrl(baseUrl);
              }
          }
+        }
      }
 
      function increment(){

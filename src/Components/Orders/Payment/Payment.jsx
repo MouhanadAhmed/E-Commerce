@@ -164,7 +164,8 @@ export default function Payment() {
      <div className="col-10  row ">
        <div className='col-9  pt-2'>
        <h6 className='h6  fw-bold'>{product.product.title}</h6>
-       <h6 className='mb-3  text-muted'>{product.product.brand.name}</h6>
+       {/* <h6 className='mb-3  text-muted'>{product.product.brand.name}</h6> */}
+       {product.product.brand != null?<h6 className='mb-3  text-muted'>{product.product.brand.name}</h6>:<h6 className='mb-3  text-muted'></h6>}
   
         </div>
        <div className='text-end col-3 pt-2'>

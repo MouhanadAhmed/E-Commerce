@@ -20,8 +20,7 @@ export default function NavBar({userData,logOut}) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse "  id="navbarSupportedContent">
-            {userData !== null?      
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0 " >
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0 " >
                 <li  className="nav-item mx-auto "   >
                 <NavLink className="nav-link nav-bar"  to={`/categoryproducts/6439d5b90049ad0b52b90048`} >Men
             </NavLink>
@@ -45,7 +44,9 @@ export default function NavBar({userData,logOut}) {
                   <Link className="nav-link " to={"cart"}>Cart</Link>
                 </li> */}
 
-              </ul>: null}
+              </ul>
+            {userData !== null?      
+            "": null}
 {/* 
             <form className="d-flex  w-25" role="search">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

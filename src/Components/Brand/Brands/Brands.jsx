@@ -11,6 +11,7 @@ export default function Brands () {
         const{data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/brands`);
         setAllBrands(data.data);
         console.log("Brands",data.data);
+       
     }
     useEffect(()=>{
         getAllBrands();
@@ -23,7 +24,7 @@ export default function Brands () {
                 <title>Brands</title>
             </Helmet>
         {allBrands?    
-        
+        allBrands.length > 0? 
         <div className='container py-3'>
             <div className="row align-items-center">
                 <div className="col-md-3 pt-4">
@@ -42,7 +43,13 @@ export default function Brands () {
                 </div>)}
 
             </div>
-        </div>:<Loading></Loading>}
+        </div>
+        :<div className='container p-5'>
+        <div className="row align-items-center p-5">
+            <h2>Brands is under maintainance, will be available soon</h2>
+            </div>
+            </div>
+        :<Loading></Loading>}
         </>
   )
 }

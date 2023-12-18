@@ -108,7 +108,10 @@ export default function MyOrders() {
       <div className='col-10  pt-2'>
       <Link key={product.product._id} to={`/product-details/${product.product._id}`}>
       <h6 className='h6  fw-bold'>{product.product.title}</h6>
-      <h6 className='mb-3  text-muted'>{product.product.brand.name}</h6> </Link>
+      {product.product.brand != null?<h6 className='mb-3  text-muted'>{product.product.brand.name}</h6>:<h6 className='mb-3  text-muted'></h6>}
+
+      {/* <h6 className='mb-3  text-muted'>{product.product.brand.name}</h6> */}
+       </Link>
       <div className="d-flex justify-content-start align-items-center mb-3">
 
       </div>

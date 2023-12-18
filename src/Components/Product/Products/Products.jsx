@@ -98,7 +98,8 @@ export default function Products() {
         color:'white'}
       });
     }else{
-      toast.error('Error',{duration:3000} )
+      if (!localStorage.getItem('userToken'))  toast.error('Please login first',{duration:3000} )
+      else toast.error('addProduct Error',{duration:3000} )
     }
   }
 
@@ -142,7 +143,8 @@ export default function Products() {
         color:'white'}
       });
     }else{
-      toast.error('Error',{duration:3000} )
+      if (!localStorage.getItem('userToken'))  toast.error('Please login first',{duration:3000} )
+      else toast.error('addProduct Error',{duration:3000} )
     }
     // console.log(response);
   }
@@ -197,7 +199,7 @@ useEffect(() =>{
                     <p className='text-main  my-0 '>{product.category.name}</p>
                     </Link>
                     <div className="d-flex justify-content-between">
-                    <p className='text-primary fs-7'>{product.brand.name}</p>
+                  {product.brand != null ?  <p className='text-primary fs-7'>{product.brand.name}</p>:<p className='text-primary fs-7'></p>}
                     {checkProductInWishlist(product.id)? <i className={`fa-solid text-danger fa-heart pe-3 cursor-pointer`} onClick={(e)=>{ removeProductFromWishlist(product.id)}}></i>: <i className={`fa-regular fa-heart pe-3 cursor-pointer`} onClick={(e)=>{ addProductToWishlist(product.id)}}></i>}
                     </div>
                     <Link to={'/product-details/'+ product.id}>
